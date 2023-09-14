@@ -1,3 +1,5 @@
+using DataAccesLayer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,7 +20,18 @@ builder.Services.AddSwaggerGen(c =>
      );
 });
 
+builder.Services.AddDbContext<DataContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("PubConnection"));
+});
+
 var app = builder.Build();
+
+/*using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<DataContext>();
+    context.Database.Migrate();
+}*/
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

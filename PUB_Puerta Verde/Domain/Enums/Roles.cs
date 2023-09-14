@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccesLayer.Models
+namespace Domain.Enums
 {
-    public class Producto
+    public enum Roles
     {
+        ADMIN = 1,
+        BARRA = 2,
+        MOZO = 3,
+        COCINERO = 4
     }
 }

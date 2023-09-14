@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccesLayer.Models
+namespace Domain.Enums
 {
-    public class Ingrediente
+    public enum PedidoEstado_Pago
     {
+        INPAGO = 1,
+        PAGO = 2
     }
 }

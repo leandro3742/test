@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccesLayer.Models
+namespace Domain.Enums
 {
-    public class ClientePreferencial
+    public enum PedidoEstado_Proceso
     {
+        INACTIVO = 1,
+        ENPROCESO = 2,
+        PRONTO = 3
     }
 }

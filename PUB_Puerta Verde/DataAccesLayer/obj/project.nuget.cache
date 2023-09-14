@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "usxNPwExAVU1YuN2T+8jeIq59Lc40+IWNr+AuexESYIS29t9OdogyTcBBPfTBNz82Bw4N4x73H3nWFI9ol4uBw==",
+  "dgSpecHash": "imm8QGjJ+YceQ3a4xoCyGcyzZpsHToYkkA3RtG0E0AbLKeHGu4KvIagIRbxPYkR19vf5dmcGlZzeksNSl7ht1A==",
   "success": true,
   "projectFilePath": "C:\\Users\\visua\\Desktop\\PUB_PuertaVerde\\PUB_Puerta Verde\\DataAccesLayer\\DataAccesLayer.csproj",
   "expectedPackageFiles": [
@@ -20,6 +20,7 @@
     "C:\\Users\\visua\\.nuget\\packages\\microsoft.entityframeworkcore.design\\7.0.10\\microsoft.entityframeworkcore.design.7.0.10.nupkg.sha512",
     "C:\\Users\\visua\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\7.0.10\\microsoft.entityframeworkcore.relational.7.0.10.nupkg.sha512",
     "C:\\Users\\visua\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\7.0.10\\microsoft.entityframeworkcore.sqlserver.7.0.10.nupkg.sha512",
+    "C:\\Users\\visua\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\7.0.10\\microsoft.entityframeworkcore.tools.7.0.10.nupkg.sha512",
     "C:\\Users\\visua\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\7.0.0\\microsoft.extensions.caching.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\visua\\.nuget\\packages\\microsoft.extensions.caching.memory\\7.0.0\\microsoft.extensions.caching.memory.7.0.0.nupkg.sha512",
     "C:\\Users\\visua\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\7.0.0\\microsoft.extensions.configuration.abstractions.7.0.0.nupkg.sha512",

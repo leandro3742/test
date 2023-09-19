@@ -8,7 +8,6 @@ namespace Domain.Entidades
 {
     public class MensajeRetorno
     {
-
         public bool status { get; set; }
         public string mensaje { get; set; }
 

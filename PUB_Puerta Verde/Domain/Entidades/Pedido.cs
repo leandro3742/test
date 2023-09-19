@@ -16,8 +16,7 @@ namespace Domain.Entidades
         public string username { get; set; }
         public int id_Cli_Preferencial { get; set; }
         public int id_Mesa { get; set; }
-        public PedidoEstado_Pago estadoPago { get; set; }
-        public PedidoEstado_Proceso estadoProceso { get; set; }
+        public bool estadoProceso { get; set; }
         public TimeSpan hora_ingreso { get; set; }
         public DateTime fecha_ingreso { get; set; }
         public int numero_movil { get; set; }
@@ -26,8 +25,8 @@ namespace Domain.Entidades
         {
             hora_ingreso = DateTime.Now.TimeOfDay;
             fecha_ingreso = DateTime.Today;
-            estadoPago = PedidoEstado_Pago.INPAGO;
-            estadoProceso = PedidoEstado_Proceso.INACTIVO;
+            pago = false;
+            estadoProceso = false;
         }
 
         public Pedido(int id_Pedido, float valorPedido, bool pago, string username, int id_Cli_Preferencial, int id_Mesa, int numero_movil)

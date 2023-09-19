@@ -16,8 +16,8 @@ namespace DataAccesLayer.Models
         [Key]
         public int id_Pedido { get; set; }
         public float valorPedido { get; set; }
-        public PedidoEstado_Pago estadoPago { get; set; }
-        public PedidoEstado_Proceso estadoProceso { get; set; }
+        public bool estadoPago { get; set; }
+        public bool estadoProceso { get; set; }
         public TimeSpan hora_ingreso { get; set; }
         public DateTime fecha_ingreso { get; set; }
         public int numero_movil { get; set; }

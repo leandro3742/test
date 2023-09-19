@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Interfaces;
 using DataAccesLayer.Interface;
+using DataAccesLayer.Models;
 using Domain.DT;
 using Domain.Entidades;
 using Microsoft.EntityFrameworkCore;
@@ -59,10 +60,21 @@ namespace BusinessLayer.Implementations
         }
 
         //Actualizar
-       
+
         //Listar
+        List<DTCategoria> IB_Categoria.listar_Categoria()
+        {
+            List <Categorias> categorias = _dal.getCategorias();
+            List<DTCategoria> dt_categorias = new List<DTCategoria>();
+            foreach (Categorias c in categorias)
+            {
+                dt_categorias.Add(_cas.getDTCategoria(c));
+            }
+
+            return dt_categorias;
+        }
 
         //Eliminar
-   
+
     }
 }

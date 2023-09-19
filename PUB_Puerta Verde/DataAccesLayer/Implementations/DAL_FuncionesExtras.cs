@@ -1,4 +1,6 @@
 ﻿using DataAccesLayer.Interface;
+using DataAccesLayer.Models;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +25,19 @@ namespace DataAccesLayer.Implementations
 
         bool IDAL_FuncionesExtras.existeCategoria(string nombre)
         {
-            return true;
+            if (_db.Categorias.Any())
+            {
+                foreach (Categorias x in _db.Categorias)
+                {
+                    if (x.nombre.Equals(nombre))
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            else
+                return false;
         }
     }
 }

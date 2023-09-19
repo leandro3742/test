@@ -11,5 +11,6 @@ namespace BusinessLayer.Interfaces
     public interface IB_Categoria
     {
         MensajeRetorno agregar_Categoria(DTCategoria dtc);
+        List<DTCategoria> listar_Categoria();
     }
 }

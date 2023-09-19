@@ -18,12 +18,22 @@ namespace DataAccesLayer.Models
         public int id_Categoria { get; set; }
         public string nombre { get; set; }
 
-        public static Categorias GetObjetAdd(DTCategoria x)
+        public static Categorias SetCategoria(DTCategoria x)
         {
             Categorias aux = new Categorias();
 
             aux.id_Categoria = x.id_Categoria;
             aux.nombre = x.nombre;
+
+            return aux;
+        }
+
+        public Categorias GetCategoria()
+        {
+            Categorias aux = new Categorias();
+
+            aux.id_Categoria = id_Categoria;
+            aux.nombre = nombre;
 
             return aux;
         }

@@ -1,4 +1,5 @@
 ﻿using DataAccesLayer.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -11,10 +12,8 @@ using System.Threading.Tasks;
 
 namespace DataAccesLayer
 {
-    public class DataContext: DbContext
+    public class DataContext: IdentityDbContext<IdentityUser>
     {
-        protected readonly IConfiguration Configuration;
-
         public DataContext()
         {
         }
@@ -29,16 +28,6 @@ namespace DataAccesLayer
             }
         }
 
-        public DataContext(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-        }
-
         public DbSet<Categorias> Categorias { get; set; }
         public DbSet<ClientesPreferenciales> ClientesPreferenciales { get; set; }
         public DbSet<Ingredientes> Ingredientes { get; set; }
@@ -47,5 +36,10 @@ namespace DataAccesLayer
         public DbSet<Pedidos_Productos> Pedidos_Productos { get; set; }
         public DbSet<Productos> Productos { get; set; }
         public DbSet<Productos_Ingredientes> Productos_Ingredientes { get; set; }
-}
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+        }
+    }
 }

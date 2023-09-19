@@ -20,7 +20,7 @@ namespace DataAccesLayer.Implementations
         //Agregar
         bool IDAL_Categoria.set_Categoria(DTCategoria dtc)
         {
-            Categorias aux = Categorias.GetObjetAdd(dtc);
+            Categorias aux = Categorias.SetCategoria(dtc);
             try
             {
                 _db.Categorias.Add(aux);
@@ -31,6 +31,11 @@ namespace DataAccesLayer.Implementations
                 return false;
             }
             return true;
+        }
+
+        //Listar
+        List<Categorias> IDAL_Categoria.getCategorias() {
+            return _db.Categorias.Select(x => x.GetCategoria()).ToList(); ;
         }
     }
 }

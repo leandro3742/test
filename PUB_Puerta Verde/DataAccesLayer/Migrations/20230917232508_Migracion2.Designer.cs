@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccesLayer.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230914070708_Migracion3")]
-    partial class Migracion3
+    [Migration("20230917232508_Migracion2")]
+    partial class Migracion2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -116,11 +116,11 @@ namespace DataAccesLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id_Pedido"));
 
-                    b.Property<int>("estadoPago")
-                        .HasColumnType("int");
+                    b.Property<bool>("estadoPago")
+                        .HasColumnType("bit");
 
-                    b.Property<int>("estadoProceso")
-                        .HasColumnType("int");
+                    b.Property<bool>("estadoProceso")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("fecha_ingreso")
                         .HasColumnType("datetime2");

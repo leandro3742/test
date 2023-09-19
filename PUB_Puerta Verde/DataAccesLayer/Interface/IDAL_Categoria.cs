@@ -13,5 +13,8 @@ namespace DataAccesLayer.Interface
     {
         //Agregar
         bool set_Categoria(DTCategoria dtc);
+
+        //Listar
+        List<Categorias> getCategorias();
     }
 }

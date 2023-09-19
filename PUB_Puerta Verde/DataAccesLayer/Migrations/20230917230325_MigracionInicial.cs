@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace DataAccesLayer.Migrations
 {
     /// <inheritdoc />
-    public partial class InitDB : Migration
+    public partial class MigracionInicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -74,6 +75,11 @@ namespace DataAccesLayer.Migrations
                     id_Pedido = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     valorPedido = table.Column<float>(type: "real", nullable: false),
+                    estadoPago = table.Column<bool>(type: "bit", nullable: false),
+                    estadoProceso = table.Column<bool>(type: "bit", nullable: false),
+                    hora_ingreso = table.Column<TimeSpan>(type: "time", nullable: false),
+                    fecha_ingreso = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    numero_movil = table.Column<int>(type: "int", nullable: false),
                     pago = table.Column<bool>(type: "bit", nullable: false),
                     username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     id_Cli_Preferencial = table.Column<int>(type: "int", nullable: false),

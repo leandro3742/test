@@ -24,7 +24,7 @@ namespace DataAccesLayer
             if (!optionsBuilder.IsConfigured)
             {
                 //optionsBuilder.UseSqlServer("Server=tcp:facubauza.database.windows.net,1433; Initial Catalog=PencaNet; Persist Security Info=False; User ID=facubauza; Password=FacundoBauza25; MultipleActiveResultSets=False; Encrypt=True; TrustServerCertificate=False; Connection Timeout=30;");
-                optionsBuilder.UseSqlServer("Data Source=DESKTOP-O6DTQ45\\ROOT;Initial Catalog=Pub_PuertaVerde;Encrypt=False;User ID=sa;Password=FacundoBauza25");
+                optionsBuilder.UseNpgsql("Host=containers-us-west-122.railway.app;Port=6019;Username=postgres;Password=9I0dWUdOhjDYkJJbfiSG;Database=railway");
             }
         }
 

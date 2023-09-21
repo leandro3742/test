@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "/j4JBSfeNectEVAnfUnbMC0X0WmRaztGPPu2KjnjkMewxMWzGgjfc6cg11PgGgPhvsUkmR/CdvEUU5lTi18yEA==",
+  "success": false,
+  "projectFilePath": "C:\\Users\\cuest\\Proyecto\\PUB_PuertaVerde\\PUB_Puerta Verde\\DataAccesLayer\\DataAccesLayer.csproj",
+  "expectedPackageFiles": [],
+  "logs": [
+    {
+      "code": "NU1301",
+      "level": "Error",
+      "message": "No se pudo recuperar información sobre \"Microsoft.EntityFrameworkCore.Analyzers\" del origen remoto \"https://api.nuget.org/v3-flatcontainer/microsoft.entityframeworkcore.analyzers/index.json\".",
+      "libraryId": "Microsoft.EntityFrameworkCore.Analyzers"
+    }
+  ]
+}

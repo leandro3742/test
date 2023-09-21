@@ -35,7 +35,7 @@ namespace DataAccesLayer.Implementations
 
         //Listar
         List<Categorias> IDAL_Categoria.getCategorias() {
-            return _db.Categorias.Select(x => x.GetCategoria()).ToList(); ;
+            return _db.Categorias.Select(x => x.GetCategoria()).ToList();
         }
     }
 }

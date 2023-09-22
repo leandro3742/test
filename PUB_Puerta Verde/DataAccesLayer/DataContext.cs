@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace DataAccesLayer
 {
-    public class DataContext: IdentityDbContext<IdentityUser>
+    public class DataContext: IdentityDbContext<Usuarios>
     {
         public DataContext()
         {
@@ -24,10 +24,12 @@ namespace DataAccesLayer
             if (!optionsBuilder.IsConfigured)
             {
                 //optionsBuilder.UseSqlServer("Server=tcp:facubauza.database.windows.net,1433; Initial Catalog=PencaNet; Persist Security Info=False; User ID=facubauza; Password=FacundoBauza25; MultipleActiveResultSets=False; Encrypt=True; TrustServerCertificate=False; Connection Timeout=30;");
-                optionsBuilder.UseNpgsql("Host=containers-us-west-122.railway.app;Port=6019;Username=postgres;Password=9I0dWUdOhjDYkJJbfiSG;Database=railway");
+                //optionsBuilder.UseNpgsql("Host=containers-us-west-122.railway.app;Port=6019;Username=postgres;Password=9I0dWUdOhjDYkJJbfiSG;Database=railway");
+                optionsBuilder.UseNpgsql("Host=containers-us-west-73.railway.app;Port=6289;Username=postgres;Password=6cVoff1igdc7HVaqQfA1;Database=railway");
             }
         }
 
+        public DbSet<Usuarios> Usuarios { get; set; }
         public DbSet<Categorias> Categorias { get; set; }
         public DbSet<ClientesPreferenciales> ClientesPreferenciales { get; set; }
         public DbSet<Ingredientes> Ingredientes { get; set; }

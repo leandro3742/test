@@ -9,5 +9,10 @@ namespace DataAccesLayer.Implementations
 {
     public class DAL_Mesa: IDAL_Mesa
     {
+        private readonly DataContext _db;
+        public DAL_Mesa(DataContext db)
+        {
+            _db = db;
+        }
     }
 }

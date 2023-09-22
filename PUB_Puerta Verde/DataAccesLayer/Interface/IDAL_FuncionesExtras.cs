@@ -12,5 +12,6 @@ namespace DataAccesLayer.Interface
 
         //Chequeos
         bool existeCategoria(string nombre);
+        bool existeIngrediente(string nombre);
     }
 }

@@ -9,5 +9,10 @@ namespace DataAccesLayer.Implementations
 {
     public class DAL_ClientePreferencial: IDAL_ClientePreferencial
     {
+        private readonly DataContext _db;
+        public DAL_ClientePreferencial(DataContext db)
+        {
+            _db = db;
+        }
     }
 }

@@ -9,5 +9,10 @@ namespace DataAccesLayer.Implementations
 {
     public class DAL_Pedido: IDAL_Pedido
     {
+        private readonly DataContext _db;
+        public DAL_Pedido(DataContext db)
+        {
+            _db = db;
+        }
     }
 }

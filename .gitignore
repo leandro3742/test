@@ -116,6 +116,7 @@ MigrationBackup/
 # Carpeta de trabajo de Ionide (herramientas de F# para VS Code)
 .ionide/
 
+<<<<<<< HEAD
 # Carpeta temporal de la base de datos de BeatPulse healthcheck
 healthchecksdb
 
@@ -145,3 +146,9 @@ MigrationBackup/
 
 # Carpeta temporal de la base de datos de BeatPulse healthcheck
 healthchecksdb
+=======
+# Fody - auto-generated XML schema
+FodyWeavers.xsd
+/PUB_Puerta Verde/PUB_Puerta Verde.sln
+/PUB_Puerta Verde/PUB_Puerta Verde.sln
+>>>>>>> origin/Facundo

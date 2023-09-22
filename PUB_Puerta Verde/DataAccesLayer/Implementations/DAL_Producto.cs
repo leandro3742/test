@@ -9,5 +9,10 @@ namespace DataAccesLayer.Implementations
 {
     public class DAL_Producto: IDAL_Producto
     {
+        private readonly DataContext _db;
+        public DAL_Producto(DataContext db)
+        {
+            _db = db;
+        }
     }
 }

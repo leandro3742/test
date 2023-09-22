@@ -13,8 +13,8 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
-
 // Add services to the container.
+
 builder.Services.AddDbContext<DataContext>();
 // For Identity
 builder.Services.AddIdentity<Usuarios, IdentityRole>()
@@ -24,38 +24,7 @@ builder.Services.AddIdentity<Usuarios, IdentityRole>()
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1",
-        new OpenApiInfo
-        {
-            Title = "Web API - V1",
-            Version = "v1"
-        }
-     ); c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
-     {
-         Name = "Authorization",
-         Type = SecuritySchemeType.ApiKey,
-         Scheme = "Bearer",
-         BearerFormat = "JWT",
-         In = ParameterLocation.Header,
-         Description = "JWT Authorization header using the Bearer scheme."
-     });
-
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-        {
-        Reference = new OpenApiReference
-        {
-            Type = ReferenceType.SecurityScheme,
-            Id = "Bearer"
-        }
-    },
-        new string[] {}
-    }});
-});
+builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>();
 
 // Adding Authentication
@@ -90,11 +59,57 @@ builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
     options.TokenLifespan = TimeSpan.FromHours(2);
 });
 
+// Add services to the container.
+builder.Services.AddControllers();
+
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1",
+        new OpenApiInfo
+        {
+            Title = "Web API - V1",
+            Version = "v1"
+        }
+     );
+
+    //var filePath = Path.Combine(AppContext.BaseDirectory, "WebAPI.xml");
+    //c.IncludeXmlComments(filePath);
+
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "JWT Authorization header using the Bearer scheme."
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+        {
+        Reference = new OpenApiReference
+        {
+            Type = ReferenceType.SecurityScheme,
+            Id = "Bearer"
+        }
+    },
+        new string[] {}
+    }});
+});
+
 /********************************************************************************************************/
 /** Add Dependencies                                                                                   **/
 /********************************************************************************************************/
 builder.Services.AddTransient<IDAL_Categoria, DAL_Categoria>();
 builder.Services.AddTransient<IB_Categoria, B_Categoria>();
+
+builder.Services.AddTransient<IDAL_Usuario, DAL_Usuario>();
+builder.Services.AddTransient<IB_Usuario, B_Usuario>();
 
 builder.Services.AddTransient<IDAL_Casteo, DAL_Casteo>();
 builder.Services.AddTransient<IDAL_FuncionesExtras, DAL_FuncionesExtras>();

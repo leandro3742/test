@@ -5,7 +5,7 @@ namespace WebApi_PUB_PV
 {
     public class Startup
     {
-        /*public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
@@ -50,7 +50,7 @@ namespace WebApi_PUB_PV
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-        }*/
+        }
     }
 }
 

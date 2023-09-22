@@ -1,9 +1,6 @@
 {
   "version": 3,
   "targets": {
-<<<<<<< HEAD
-    "net7.0": {}
-=======
     "net7.0": {
       "Azure.Core/1.24.0": {
         "type": "package",
@@ -3731,11 +3728,11 @@
       "path": "../Domain/Domain.csproj",
       "msbuildProject": "../Domain/Domain.csproj"
     }
->>>>>>> origin/Facundo
   },
-  "libraries": {},
   "projectFileDependencyGroups": {
     "net7.0": [
+      "DataAccesLayer >= 1.0.0",
+      "Domain >= 1.0.0",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 7.0.10"
     ]
   },
@@ -3813,10 +3810,10 @@
   },
   "logs": [
     {
-      "code": "NU1301",
-      "level": "Error",
-      "message": "No se pudo recuperar información sobre \"Microsoft.EntityFrameworkCore.Analyzers\" del origen remoto \"https://api.nuget.org/v3-flatcontainer/microsoft.entityframeworkcore.analyzers/index.json\".",
-      "libraryId": "Microsoft.EntityFrameworkCore.Analyzers"
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problema al leer el archivo de caché C:\\Users\\cuest\\Proyecto\\PUB_PuertaVerde\\PUB_Puerta Verde\\BusinessLayer\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
     }
   ]
 }

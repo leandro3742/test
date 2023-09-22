@@ -25,7 +25,13 @@ namespace Domain.Entidades
             mensaje = "El objeto enviado es nulo";
             status = false;
         }
+        public void Objeto_Nulo()
+        {
+            mensaje = "Objeto Nulo";
+            status = false;
+        }
 
+        //Categoria
         public void La_Categoria_se_guardo_Correctamente()
         {
             mensaje = "La Categoria se guardo correctamente";
@@ -37,10 +43,16 @@ namespace Domain.Entidades
             mensaje = "Ya existe una Categoria con el Nombre ingresado";
             status = false;
         }
-
-        public void Objeto_Nulo()
+        //Ingrediente
+        public void Ya_existe_un_Ingrediente_con_el_Nombre_ingresado()
         {
-            mensaje = "Objeto Nulo";
+            mensaje = "El Ingrediente se guardo correctamente";
+            status = true;
+        }
+
+        public void El_Ingrediente_se_guardo_Correctamente()
+        {
+            mensaje = "Ya existe un Ingrediente con el Nombre ingresado";
             status = false;
         }
     }

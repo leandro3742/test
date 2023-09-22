@@ -39,5 +39,22 @@ namespace DataAccesLayer.Implementations
             else
                 return false;
         }
+
+        public bool existeIngrediente(string nombre)
+        {
+            if (_db.Ingredientes.Any())
+            {
+                foreach (Ingredientes x in _db.Ingredientes)
+                {
+                    if (x.nombre.Equals(nombre))
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            else
+                return false;
+        }
     }
 }

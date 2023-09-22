@@ -11,6 +11,17 @@ namespace DataAccesLayer.Implementations
 {
     public class DAL_Casteo : IDAL_Casteo
     {
+        public DTIngrediente getDTIngrediente(Ingredientes x)
+        {
+            DTIngrediente aux = new DTIngrediente();
+            aux.id_Ingrediente = x.id_Ingrediente;
+            aux.nombre = x.nombre;
+            aux.stock = x.stock;
+            aux.id_Categoria = x.id_Categoria;
+
+            return aux;
+        }
+
         DTCategoria IDAL_Casteo.getDTCategoria(Categorias x)
         {
             DTCategoria aux = new DTCategoria();

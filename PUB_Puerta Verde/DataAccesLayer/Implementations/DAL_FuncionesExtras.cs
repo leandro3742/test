@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataAccesLayer.Implementations
 {
-    public class DAL_FuncionesExtras: IDAL_FuncionesExtras
+    public class DAL_FuncionesExtras : IDAL_FuncionesExtras
     {
         private readonly DataContext _db;
         private IDAL_Casteo _cas;

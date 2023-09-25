@@ -68,5 +68,28 @@ namespace BusinessLayer.Implementations
 
             return dt_Ingredientes;
         }
+
+        public MensajeRetorno Modificar_Ingrediente(DTIngrediente dti)
+        {
+            MensajeRetorno men = new MensajeRetorno();
+            if (dti != null)
+            {
+                if (_dal.modificar_Ingrediente(dti) == true)
+                {
+                    men.El_Ingrediente_se_guardo_Correctamente();
+                    return men;
+                }
+                else
+                {
+                    men.Exepcion_no_Controlada();
+                    return men;
+                }
+            }
+            else
+            {
+                men.Objeto_Nulo();
+                return men;
+            }
+        }
     }
 }

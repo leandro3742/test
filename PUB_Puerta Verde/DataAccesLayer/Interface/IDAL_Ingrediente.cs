@@ -16,6 +16,9 @@ namespace DataAccesLayer.Interface
 
         //Listar
         List<Ingredientes> getIngrediente();
+
+        //Modificar
+        bool modificar_Ingrediente(DTIngrediente dti);
     }
 }
 

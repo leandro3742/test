@@ -55,5 +55,11 @@ namespace Domain.Entidades
             mensaje = "El Ingrediente se guardo correctamente";
             status = true;
         }
+
+        public void El_Ingrediente_se_modifico_Correctamente()
+        {
+            mensaje = "El Ingrediente se modifico correctamente";
+            status = true;
+        }
     }
 }

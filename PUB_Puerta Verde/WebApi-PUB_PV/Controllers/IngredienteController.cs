@@ -38,5 +38,13 @@ namespace WebApi_PUB_PV.Controllers
         {
             return null; // Ok(bl.eliminar_Evento(id));
         }
+        
+        //Modificar
+        [HttpPost("/api/modificarIngrediente")]
+        public ActionResult<DTIngrediente> Put([FromBody] DTIngrediente Modificar)
+        {
+            MensajeRetorno x = bl.Modificar_Ingrediente(Modificar);
+            return Ok(new StatusResponse { StatusOk = x.status, StatusMessage = x.mensaje });
+        }
     }
 }

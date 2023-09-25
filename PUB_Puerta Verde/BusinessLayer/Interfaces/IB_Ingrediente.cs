@@ -15,5 +15,8 @@ namespace BusinessLayer.Interfaces
 
         //Listar
         List<DTIngrediente> Listar_Ingrediente();
+
+        //Modificar
+        MensajeRetorno Modificar_Ingrediente(DTIngrediente value);
     }
 }

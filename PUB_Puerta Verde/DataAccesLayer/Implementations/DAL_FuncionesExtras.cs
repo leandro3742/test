@@ -42,16 +42,10 @@ namespace DataAccesLayer.Implementations
 
         public bool existeIngrediente(string nombre)
         {
-            if (_db.Ingredientes.Any())
+            // Utiliza SingleOrDefault() para buscar un ingrediente por nombre.
+            if (_db.Ingredientes.SingleOrDefault(i => i.nombre == nombre) != null)
             {
-                foreach (Ingredientes x in _db.Ingredientes)
-                {
-                    if (x.nombre.Equals(nombre))
-                    {
-                        return true;
-                    }
-                }
-                return false;
+                return true;
             }
             else
                 return false;

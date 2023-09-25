@@ -18,7 +18,6 @@ namespace DataAccesLayer.Models
         internal static Ingredientes SetIngrediente(DTIngrediente x)
         {
             Ingredientes aux = new Ingredientes();
-
             aux.id_Ingrediente = x.id_Ingrediente;
             aux.nombre = x.nombre;
             aux.stock = x.stock;
@@ -30,8 +29,7 @@ namespace DataAccesLayer.Models
         public Ingredientes GetIngrediente()
         {
             Ingredientes aux = new Ingredientes();
-
-            aux.id_Categoria = id_Categoria;
+            aux.id_Ingrediente = id_Ingrediente;
             aux.nombre = nombre;
             aux.stock = stock;
             aux.id_Categoria = id_Categoria;

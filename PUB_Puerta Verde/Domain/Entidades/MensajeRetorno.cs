@@ -46,14 +46,14 @@ namespace Domain.Entidades
         //Ingrediente
         public void Ya_existe_un_Ingrediente_con_el_Nombre_ingresado()
         {
-            mensaje = "El Ingrediente se guardo correctamente";
-            status = true;
+            mensaje = "Ya existe un Ingrediente con el Nombre ingresado";
+            status = false;
         }
 
         public void El_Ingrediente_se_guardo_Correctamente()
         {
-            mensaje = "Ya existe un Ingrediente con el Nombre ingresado";
-            status = false;
+            mensaje = "El Ingrediente se guardo correctamente";
+            status = true;
         }
     }
 }

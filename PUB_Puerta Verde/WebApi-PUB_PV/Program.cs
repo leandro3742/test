@@ -114,6 +114,9 @@ builder.Services.AddTransient<IB_Usuario, B_Usuario>();
 builder.Services.AddTransient<IDAL_Casteo, DAL_Casteo>();
 builder.Services.AddTransient<IDAL_FuncionesExtras, DAL_FuncionesExtras>();
 
+builder.Services.AddTransient<IDAL_Ingrediente, DAL_Ingrediente>();
+builder.Services.AddTransient<IB_Ingrediente,  B_Ingrediente>();
+
 
 var app = builder.Build();
 

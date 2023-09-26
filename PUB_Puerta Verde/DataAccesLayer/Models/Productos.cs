@@ -17,6 +17,7 @@ namespace DataAccesLayer.Models
         public string nombre { get; set; }
         public string descripcion { get; set; }
         public float precio { get; set; }
+        public bool registro_Activo { get; set; }
 
     }
 }

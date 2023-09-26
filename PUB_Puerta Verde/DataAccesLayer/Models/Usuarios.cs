@@ -16,5 +16,6 @@ namespace DataAccesLayer.Models
         public string? nombre { get; set; }
         [MaxLength(128), MinLength(3), Required]
         public string? apellido { get; set; }
+        public bool registro_Activo { get; set; }
     }
 }

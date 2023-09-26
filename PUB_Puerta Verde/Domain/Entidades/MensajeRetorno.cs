@@ -43,6 +43,26 @@ namespace Domain.Entidades
             mensaje = "Ya existe una Categoria con el Nombre ingresado";
             status = false;
         }
+
+        public void La_Categoria_se_quito_Correctamente()
+        {
+            mensaje = "La Categoria se a dado de baja correctamente";
+            status = true;
+        }
+
+        public void El_Cliente_se_guardo_Correctamente()
+        {
+            mensaje = "El Cliente se guardo correctamente";
+            status = true;
+        }
+
+        public void Ya_existe_un_Cliente_con_los_datos_ingresado()
+        {
+            mensaje = "Ya esxiste un cliente con los datos ingresados";
+            status = false;
+        }
+
+        public void Objeto_Nulo()
         //Ingrediente
         public void Ya_existe_un_Ingrediente_con_el_Nombre_ingresado()
         {

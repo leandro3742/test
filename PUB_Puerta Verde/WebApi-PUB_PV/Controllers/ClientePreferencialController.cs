@@ -1,83 +1,48 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BusinessLayer.Interfaces;
+using Domain.DT;
+using Domain.Entidades;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebApi_PUB_PV.Models;
 
 namespace WebApi_PUB_PV.Controllers
 {
     public class ClientePreferencialController : Controller
     {
-        // GET: ClientePreferencialController
-        public ActionResult Index()
+        private IB_ClientePreferencial bl;
+        public ClientePreferencialController(IB_ClientePreferencial _bl)
         {
-            return View();
+            bl = _bl;
         }
 
-        // GET: ClientePreferencialController/Details/5
-        public ActionResult Details(int id)
+        //Agregar
+        [HttpPost("/api/agregarCliente")]
+        public ActionResult<DTCliente_Preferencial> Post([FromBody] DTCliente_Preferencial value)
         {
-            return View();
+            MensajeRetorno x = bl.agregar_ClientePreferencial(value);
+            return Ok(new StatusResponse { StatusOk = x.status, StatusMessage = x.mensaje });
         }
 
-        // GET: ClientePreferencialController/Create
-        public ActionResult Create()
+        /*//Actualizar    
+        [HttpPut("/api/actualizarEvento")]
+        public ActionResult<Evento> Put([FromBody] DTEvento value)
         {
-            return View();
+            MensajesEnum x = bl.actualizar_Evento(value);
+            return Ok(new StatusResponse { StatusOk = x.status, StatusMessage = x.mensaje });
         }
 
-        // POST: ClientePreferencialController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        //Listar
+        [HttpGet("/api/listarEventos")]
+        public List<DTEvento> Get()
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return bl.listar_Eventos();
         }
 
-        // GET: ClientePreferencialController/Edit/5
-        public ActionResult Edit(int id)
+        //Eliminar
+        [HttpDelete("/api/agregarEvento/{id:int}")]
+        public ActionResult<bool> Delete(int id)
         {
-            return View();
-        }
-
-        // POST: ClientePreferencialController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ClientePreferencialController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: ClientePreferencialController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+            return Ok(bl.eliminar_Evento(id));
+        }*/
     }
 }

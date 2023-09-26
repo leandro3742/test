@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DataAccesLayer.Implementations
 {
@@ -30,6 +31,23 @@ namespace DataAccesLayer.Implementations
                 foreach (Categorias x in _db.Categorias)
                 {
                     if (x.nombre.Equals(nombre))
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            else
+                return false;
+        }
+
+        bool IDAL_FuncionesExtras.existeCliente(string telefono)
+        {
+            if (_db.ClientesPreferenciales.Any())
+            {
+                foreach (ClientesPreferenciales x in _db.ClientesPreferenciales)
+                {
+                    if (x.telefono.Equals(telefono))
                     {
                         return true;
                     }

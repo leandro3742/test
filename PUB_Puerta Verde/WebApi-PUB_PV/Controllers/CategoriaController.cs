@@ -34,9 +34,10 @@ namespace WebApi_PUB_PV.Controllers
 
         //Eliminar
         [HttpDelete("/api/bajaCategoria/{id:int}")]
-        public ActionResult<bool> Delete(int id)
+        public ActionResult<bool> BajaCategoria(int id)
         {
-            return null; // Ok(bl.eliminar_Evento(id));
+            MensajeRetorno x = bl.baja_Categoria(id);
+            return Ok(new StatusResponse { StatusOk = x.status, StatusMessage = x.mensaje });
         }
     }
 }

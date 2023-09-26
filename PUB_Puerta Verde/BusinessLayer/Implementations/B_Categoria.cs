@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,8 +60,6 @@ namespace BusinessLayer.Implementations
 
         }
 
-        //Actualizar
-
         //Listar
         List<DTCategoria> IB_Categoria.listar_Categoria()
         {
@@ -74,7 +73,21 @@ namespace BusinessLayer.Implementations
             return dt_categorias;
         }
 
-        //Eliminar
+        //Baja
+        MensajeRetorno IB_Categoria.baja_Categoria(int id)
+        {
+            MensajeRetorno men = new MensajeRetorno();
+            if (_dal.baja_Categoria(id) == true)
+            {
+                men.La_Categoria_se_quito_Correctamente();
+                return men;
+            }
+            else
+            {
+                men.Exepcion_no_Controlada();
+                return men;
+            }
+        }
 
     }
 }

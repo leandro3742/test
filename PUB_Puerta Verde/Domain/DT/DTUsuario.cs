@@ -14,6 +14,7 @@ namespace Domain.DT
         public string? Email { get; set; }
         public string? Username { get; set; }
         public DateTime FechaHora { get; set; }
+        public bool registro_Activo { get; set; }
         public string[] Roles { get; set; } = { };
     }
 }

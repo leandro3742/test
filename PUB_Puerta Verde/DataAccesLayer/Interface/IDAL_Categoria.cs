@@ -16,5 +16,8 @@ namespace DataAccesLayer.Interface
 
         //Listar
         List<Categorias> getCategorias();
+
+        //Baja
+        bool baja_Categoria(int id);
     }
 }

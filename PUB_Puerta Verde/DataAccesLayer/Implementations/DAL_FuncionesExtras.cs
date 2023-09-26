@@ -10,7 +10,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DataAccesLayer.Implementations
 {
-    public class DAL_FuncionesExtras: IDAL_FuncionesExtras
+    public class DAL_FuncionesExtras : IDAL_FuncionesExtras
     {
         private readonly DataContext _db;
         private IDAL_Casteo _cas;
@@ -53,6 +53,12 @@ namespace DataAccesLayer.Implementations
                     }
                 }
                 return false;
+        public bool existeIngrediente(string nombre)
+        {
+            // Utiliza SingleOrDefault() para buscar un ingrediente por nombre.
+            if (_db.Ingredientes.SingleOrDefault(i => i.nombre == nombre) != null)
+            {
+                return true;
             }
             else
                 return false;

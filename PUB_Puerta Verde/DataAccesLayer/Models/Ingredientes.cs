@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Domain.DT;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccesLayer.Models
 {
@@ -19,5 +15,26 @@ namespace DataAccesLayer.Models
         [ForeignKey("Categoria")]
         public int? id_Categoria { get; set; }
 
+        internal static Ingredientes SetIngrediente(DTIngrediente x)
+        {
+            Ingredientes aux = new Ingredientes();
+            aux.id_Ingrediente = x.id_Ingrediente;
+            aux.nombre = x.nombre;
+            aux.stock = x.stock;
+            aux.id_Categoria = x.id_Categoria;
+
+            return aux;
+        }
+
+        public Ingredientes GetIngrediente()
+        {
+            Ingredientes aux = new Ingredientes();
+            aux.id_Ingrediente = id_Ingrediente;
+            aux.nombre = nombre;
+            aux.stock = stock;
+            aux.id_Categoria = id_Categoria;
+
+            return aux;
+        }
     }
 }

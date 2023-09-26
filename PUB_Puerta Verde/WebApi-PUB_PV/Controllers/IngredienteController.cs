@@ -1,83 +1,50 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Domain.DT;
+using Domain.Entidades;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebApi_PUB_PV.Models;
+using BusinessLayer.Interfaces;
 
 namespace WebApi_PUB_PV.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class IngredienteController : Controller
     {
-        // GET: IngredienteController
-        public ActionResult Index()
+        private IB_Ingrediente bl;
+        public IngredienteController(IB_Ingrediente _bl)
         {
-            return View();
+            bl = _bl;
         }
 
-        // GET: IngredienteController/Details/5
-        public ActionResult Details(int id)
+        //Agregar
+        [HttpPost("/api/agregarIngrediente")]
+        public ActionResult<DTIngrediente> Post([FromBody] DTIngrediente value)
         {
-            return View();
+            MensajeRetorno x = bl.Agregar_Ingrediente(value);
+            return Ok(new StatusResponse { StatusOk = x.status, StatusMessage = x.mensaje });
         }
 
-        // GET: IngredienteController/Create
-        public ActionResult Create()
+        //Listar
+        [HttpGet("/api/listarIngredientes")]
+        public List<DTIngrediente> Get()
         {
-            return View();
+            return bl.Listar_Ingrediente();
         }
 
-        // POST: IngredienteController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        //Eliminar
+        [HttpDelete("/api/bajaIngrediente/{id:int}")]
+        public ActionResult<bool> Delete(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return null; // Ok(bl.eliminar_Evento(id));
         }
-
-        // GET: IngredienteController/Edit/5
-        public ActionResult Edit(int id)
+        
+        //Modificar
+        [HttpPost("/api/modificarIngrediente")]
+        public ActionResult<DTIngrediente> Put([FromBody] DTIngrediente Modificar)
         {
-            return View();
-        }
-
-        // POST: IngredienteController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: IngredienteController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: IngredienteController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            MensajeRetorno x = bl.Modificar_Ingrediente(Modificar);
+            return Ok(new StatusResponse { StatusOk = x.status, StatusMessage = x.mensaje });
         }
     }
 }

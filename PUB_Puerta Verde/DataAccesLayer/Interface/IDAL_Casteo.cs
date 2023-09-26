@@ -10,6 +10,7 @@ namespace DataAccesLayer.Interface
 {
     public interface IDAL_Casteo
     {
+        DTIngrediente getDTIngrediente(Ingredientes x);
         DTCategoria getDTCategoria(Categorias x);
     }
 }

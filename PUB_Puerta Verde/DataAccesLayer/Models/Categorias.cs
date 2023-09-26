@@ -17,6 +17,7 @@ namespace DataAccesLayer.Models
         [Key]
         public int id_Categoria { get; set; }
         public string nombre { get; set; }
+        public bool registro_Activo { get; set; }
 
         public static Categorias SetCategoria(DTCategoria x)
         {
@@ -24,6 +25,7 @@ namespace DataAccesLayer.Models
 
             aux.id_Categoria = x.id_Categoria;
             aux.nombre = x.nombre;
+            aux.registro_Activo = true;
 
             return aux;
         }
@@ -34,6 +36,7 @@ namespace DataAccesLayer.Models
 
             aux.id_Categoria = id_Categoria;
             aux.nombre = nombre;
+            aux.registro_Activo = registro_Activo;
 
             return aux;
         }

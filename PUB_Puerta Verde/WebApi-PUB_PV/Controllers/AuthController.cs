@@ -41,46 +41,43 @@ namespace WebApi_PUB_PV.Controllers
             try
             {
                 Usuarios user = await _userManager.FindByNameAsync(model.Username);
-
+                
                 if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
                 {
-                    var userRoles = await _userManager.GetRolesAsync(user);
-
-                    var authClaims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim(ClaimTypes.NameIdentifier, user.Id),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                };
-
-                    foreach (var userRole in userRoles)
+                    if (user.registro_Activo)
                     {
-                        authClaims.Add(new Claim(ClaimTypes.Role, userRole));
+                        var userRoles = await _userManager.GetRolesAsync(user);
+
+                        var authClaims = new List<Claim>
+                        {
+                            new Claim(ClaimTypes.Name, user.UserName),
+                            new Claim(ClaimTypes.NameIdentifier, user.Id),
+                            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                        };
+
+                        foreach (var userRole in userRoles)
+                        {
+                            authClaims.Add(new Claim(ClaimTypes.Role, userRole));
+                        }
+
+                        var token = GetToken(authClaims);
+
+                        LoginResponse lr = new LoginResponse();
+                        lr.StatusOk = true;
+                        lr.StatusMessage = "Usuario logueado correctamente!";
+                        lr.IdUsuario = user.Id;
+                        lr.Token = new JwtSecurityTokenHandler().WriteToken(token);
+                        lr.Expiration = token.ValidTo;
+                        lr.Email = user.Email;
+                        lr.ExpirationMinutes = Convert.ToInt32((token.ValidTo - DateTime.UtcNow).TotalMinutes);
+                        lr.Nombre = user.apellido + ", " + user.nombre;
+
+                        return Ok(lr);
                     }
-
-                    var token = GetToken(authClaims);
-
-                    LoginResponse lr = new LoginResponse();
-                    lr.StatusOk = true;
-                    lr.StatusMessage = "Usuario logueado correctamente!";
-                    lr.IdUsuario = user.Id;
-                    lr.Token = new JwtSecurityTokenHandler().WriteToken(token);
-                    lr.Expiration = token.ValidTo;
-                    lr.Email = user.Email;
-                    lr.ExpirationMinutes = Convert.ToInt32((token.ValidTo - DateTime.UtcNow).TotalMinutes);
-                    lr.Nombre = user.apellido + ", " + user.nombre;
-
-                    return Ok(lr);/*new LoginResponse
+                    else
                     {
-                        StatusOk = true,
-                        StatusMessage = "Usuario logueado correctamente!",
-                        IdUsuario = user.Id,
-                        Token = new JwtSecurityTokenHandler().WriteToken(token),
-                        Expiration = token.ValidTo,
-                        Email = user.Email,
-                        ExpirationMinutes = Convert.ToInt32((token.ValidTo - DateTime.UtcNow).TotalMinutes),
-                        Nombre = user.apellido + ", " + user.nombre
-                    });*/
+                        return Ok(new StatusResponse { StatusOk = true, StatusMessage = "Este Usuario esta desactivado" });
+                    }       
                 }
             }
             catch (Exception ex)
@@ -142,7 +139,8 @@ namespace WebApi_PUB_PV.Controllers
                 Email = usuario.Email,
                 Id = usuario.Id,
                 Nombre = usuario.nombre,
-                Username = usuario.UserName
+                Username = usuario.UserName,
+                registro_Activo = usuario.registro_Activo
             };
 
             // TODO Agregar roles.
@@ -160,6 +158,7 @@ namespace WebApi_PUB_PV.Controllers
                 Nombre = x.nombre,
                 Email = x.Email,
                 Username = x.UserName,
+                registro_Activo = x.registro_Activo
             }).ToListAsync();
         }
 
@@ -213,6 +212,24 @@ namespace WebApi_PUB_PV.Controllers
                 );
 
             return token;
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "ADMIN")]
+        [Route("BajaUsuario")]
+        [ProducesResponseType(typeof(StatusResponse), 200)]
+        public async Task<IActionResult> UpdateUser(string username)
+        {
+            var userExists = await _userManager.FindByNameAsync(username);
+            if (userExists == null)
+                return StatusCode(StatusCodes.Status500InternalServerError, new StatusResponse { StatusOk = false, StatusMessage = "No existe un usuario con username " + username });
+
+            userExists.registro_Activo = false;
+
+            //Actulizar User
+            await _userManager.UpdateAsync(userExists);
+
+            return Ok(new StatusResponse { StatusOk = true, StatusMessage = "Usuario dado de Baja correctamente!" });
         }
     }
 }

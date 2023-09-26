@@ -15,5 +15,6 @@ namespace DataAccesLayer.Models
         [Key]
         public int id_Mesa { get; set; }
         public bool enUso { get; set; }
+        public bool registro_Activo { get; set; }
     }
 }

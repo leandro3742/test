@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DataAccesLayer.Implementations
 {
@@ -40,6 +41,18 @@ namespace DataAccesLayer.Implementations
                 return false;
         }
 
+        bool IDAL_FuncionesExtras.existeCliente(string telefono)
+        {
+            if (_db.ClientesPreferenciales.Any())
+            {
+                foreach (ClientesPreferenciales x in _db.ClientesPreferenciales)
+                {
+                    if (x.telefono.Equals(telefono))
+                    {
+                        return true;
+                    }
+                }
+                return false;
         public bool existeIngrediente(string nombre)
         {
             // Utiliza SingleOrDefault() para buscar un ingrediente por nombre.

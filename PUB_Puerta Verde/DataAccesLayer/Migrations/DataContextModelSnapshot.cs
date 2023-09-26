@@ -34,6 +34,9 @@ namespace DataAccesLayer.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool>("registro_Activo")
+                        .HasColumnType("boolean");
+
                     b.HasKey("id_Categoria");
 
                     b.ToTable("Categoria");
@@ -51,15 +54,22 @@ namespace DataAccesLayer.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("fichasCanje")
+                        .HasColumnType("integer");
+
                     b.Property<string>("nombre")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool>("registro_Activo")
+                        .HasColumnType("boolean");
+
                     b.Property<float>("saldo")
                         .HasColumnType("real");
 
-                    b.Property<int>("telefono")
-                        .HasColumnType("integer");
+                    b.Property<string>("telefono")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("id_Cli_Preferencial");
 
@@ -98,6 +108,9 @@ namespace DataAccesLayer.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id_Mesa"));
 
                     b.Property<bool>("enUso")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("registro_Activo")
                         .HasColumnType("boolean");
 
                     b.HasKey("id_Mesa");
@@ -181,6 +194,9 @@ namespace DataAccesLayer.Migrations
                     b.Property<float>("precio")
                         .HasColumnType("real");
 
+                    b.Property<bool>("registro_Activo")
+                        .HasColumnType("boolean");
+
                     b.HasKey("id_Producto");
 
                     b.ToTable("Producto");
@@ -260,6 +276,9 @@ namespace DataAccesLayer.Migrations
                         .IsRequired()
                         .HasMaxLength(128)
                         .HasColumnType("character varying(128)");
+
+                    b.Property<bool>("registro_Activo")
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 

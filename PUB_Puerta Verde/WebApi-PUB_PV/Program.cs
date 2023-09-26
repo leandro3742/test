@@ -115,7 +115,19 @@ builder.Services.AddTransient<IDAL_Casteo, DAL_Casteo>();
 builder.Services.AddTransient<IDAL_FuncionesExtras, DAL_FuncionesExtras>();
 
 builder.Services.AddTransient<IDAL_Ingrediente, DAL_Ingrediente>();
-builder.Services.AddTransient<IB_Ingrediente,  B_Ingrediente>();
+builder.Services.AddTransient<IB_Ingrediente, B_Ingrediente>();
+
+builder.Services.AddTransient<IDAL_Mesa, DAL_Mesa>();
+builder.Services.AddTransient<IB_Mesa, B_Mesa>();
+
+builder.Services.AddTransient<IDAL_Pedido, DAL_Pedido>();
+builder.Services.AddTransient<IB_Pedido, B_Pedido>();
+
+builder.Services.AddTransient<IDAL_Producto, DAL_Producto>();
+builder.Services.AddTransient<IB_Producto, B_Producto>();
+
+builder.Services.AddTransient<IDAL_ClientePreferencial, DAL_ClientePreferencial>();
+builder.Services.AddTransient<IB_ClientePreferencial, B_ClientePreferencial>();
 
 
 var app = builder.Build();

@@ -1,83 +1,50 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BusinessLayer.Interfaces;
+using Domain.DT;
+using Domain.Entidades;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebApi_PUB_PV.Models;
 
 namespace WebApi_PUB_PV.Controllers
 {
     public class ProductoController : Controller
     {
-        // GET: ProductoController
-        public ActionResult Index()
+
+        private IB_Producto bl;
+        public ProductoController(IB_Producto _bl)
         {
-            return View();
+            bl = _bl;
         }
 
-        // GET: ProductoController/Details/5
-        public ActionResult Details(int id)
+        //Agregar
+        [HttpPost("/api/agregarProducto")]
+        public ActionResult<DTCategoria> Post([FromBody] DTProducto value)
         {
-            return View();
+            MensajeRetorno x = bl.agregar_Producto(value);
+            return Ok(new StatusResponse { StatusOk = x.status, StatusMessage = x.mensaje });
         }
 
-        // GET: ProductoController/Create
-        public ActionResult Create()
+        //Listar
+        [HttpGet("/api/listarProductos")]
+        public List<DTProducto> Get()
         {
-            return View();
+            return bl.listar_Productos();
         }
 
-        // POST: ProductoController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        //Eliminar
+        [HttpDelete("/api/bajaProducto/{id:int}")]
+        public ActionResult<bool> BajaProducto(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            MensajeRetorno x = bl.baja_Producto(id);
+            return Ok(new StatusResponse { StatusOk = x.status, StatusMessage = x.mensaje });
         }
 
-        // GET: ProductoController/Edit/5
-        public ActionResult Edit(int id)
+        //Modificar
+        [HttpPost("/api/modificarProducto")]
+        public ActionResult<DTIngrediente> Put([FromBody] DTProducto Modificar)
         {
-            return View();
-        }
-
-        // POST: ProductoController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ProductoController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: ProductoController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            MensajeRetorno x = bl.Modificar_Producto(Modificar);
+            return Ok(new StatusResponse { StatusOk = x.status, StatusMessage = x.mensaje });
         }
     }
 }

@@ -39,5 +39,13 @@ namespace DataAccesLayer.Implementations
             aux.nombre = x.nombre;
             return aux;
         }
+
+        public DTMesa getDTMesa(Mesas m)
+        {
+            DTMesa aux = new DTMesa();
+            aux.id_Mesa = m.id_Mesa;
+            aux.enUso = m.enUso;
+            return aux;
+        }
     }
 }

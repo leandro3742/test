@@ -78,5 +78,16 @@ namespace DataAccesLayer.Implementations
             else
                 return false;
         }
+
+        public bool existeMesa(int id_Mesa)
+        {
+            // Utiliza SingleOrDefault() para buscar una Mesa.
+            if (_db.Mesas.SingleOrDefault(i => i.id_Mesa == id_Mesa) != null)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
     }
 }

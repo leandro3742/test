@@ -18,7 +18,7 @@ namespace WebApi_PUB_PV.Controllers
 
         //Agregar
         [HttpPost("/api/agregarProducto")]
-        public ActionResult<DTCategoria> Post([FromBody] DTProducto value)
+        public ActionResult<DTProducto> Post([FromBody] DTProducto value)
         {
             MensajeRetorno x = bl.agregar_Producto(value);
             return Ok(new StatusResponse { StatusOk = x.status, StatusMessage = x.mensaje });
@@ -41,7 +41,7 @@ namespace WebApi_PUB_PV.Controllers
 
         //Modificar
         [HttpPost("/api/modificarProducto")]
-        public ActionResult<DTIngrediente> Put([FromBody] DTProducto Modificar)
+        public ActionResult<DTProducto> Put([FromBody] DTProducto Modificar)
         {
             MensajeRetorno x = bl.Modificar_Producto(Modificar);
             return Ok(new StatusResponse { StatusOk = x.status, StatusMessage = x.mensaje });

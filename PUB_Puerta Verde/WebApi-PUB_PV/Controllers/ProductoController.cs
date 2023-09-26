@@ -1,83 +1,42 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BusinessLayer.Interfaces;
+using Domain.DT;
+using Domain.Entidades;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebApi_PUB_PV.Models;
 
 namespace WebApi_PUB_PV.Controllers
 {
     public class ProductoController : Controller
     {
-        // GET: ProductoController
-        public ActionResult Index()
+
+        private IB_Producto bl;
+        public ProductoController(IB_Producto _bl)
         {
-            return View();
+            bl = _bl;
         }
 
-        // GET: ProductoController/Details/5
-        public ActionResult Details(int id)
+        //Agregar
+        [HttpPost("/api/agregarCategoria")]
+        public ActionResult<DTCategoria> Post([FromBody] DTCategoria value)
         {
-            return View();
+            MensajeRetorno x = bl.agregar_Categoria(value);
+            return Ok(new StatusResponse { StatusOk = x.status, StatusMessage = x.mensaje });
         }
 
-        // GET: ProductoController/Create
-        public ActionResult Create()
+        //Listar
+        [HttpGet("/api/listarCategorias")]
+        public List<DTCategoria> Get()
         {
-            return View();
+            return bl.listar_Categoria();
         }
 
-        // POST: ProductoController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        //Eliminar
+        [HttpDelete("/api/bajaCategoria/{id:int}")]
+        public ActionResult<bool> BajaCategoria(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ProductoController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: ProductoController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ProductoController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: ProductoController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            MensajeRetorno x = bl.baja_Categoria(id);
+            return Ok(new StatusResponse { StatusOk = x.status, StatusMessage = x.mensaje });
         }
     }
 }

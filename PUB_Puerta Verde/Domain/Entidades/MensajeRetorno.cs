@@ -61,8 +61,6 @@ namespace Domain.Entidades
             mensaje = "Ya esxiste un cliente con los datos ingresados";
             status = false;
         }
-
-        public void Objeto_Nulo()
         //Ingrediente
         public void Ya_existe_un_Ingrediente_con_el_Nombre_ingresado()
         {

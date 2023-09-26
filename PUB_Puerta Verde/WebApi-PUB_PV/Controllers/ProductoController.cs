@@ -17,25 +17,33 @@ namespace WebApi_PUB_PV.Controllers
         }
 
         //Agregar
-        [HttpPost("/api/agregarCategoria")]
-        public ActionResult<DTCategoria> Post([FromBody] DTCategoria value)
+        [HttpPost("/api/agregarProducto")]
+        public ActionResult<DTCategoria> Post([FromBody] DTProducto value)
         {
-            MensajeRetorno x = bl.agregar_Categoria(value);
+            MensajeRetorno x = bl.agregar_Producto(value);
             return Ok(new StatusResponse { StatusOk = x.status, StatusMessage = x.mensaje });
         }
 
         //Listar
-        [HttpGet("/api/listarCategorias")]
-        public List<DTCategoria> Get()
+        [HttpGet("/api/listarProductos")]
+        public List<DTProducto> Get()
         {
-            return bl.listar_Categoria();
+            return bl.listar_Productos();
         }
 
         //Eliminar
-        [HttpDelete("/api/bajaCategoria/{id:int}")]
-        public ActionResult<bool> BajaCategoria(int id)
+        [HttpDelete("/api/bajaProducto/{id:int}")]
+        public ActionResult<bool> BajaProducto(int id)
         {
-            MensajeRetorno x = bl.baja_Categoria(id);
+            MensajeRetorno x = bl.baja_Producto(id);
+            return Ok(new StatusResponse { StatusOk = x.status, StatusMessage = x.mensaje });
+        }
+
+        //Modificar
+        [HttpPost("/api/modificarProducto")]
+        public ActionResult<DTIngrediente> Put([FromBody] DTProducto Modificar)
+        {
+            MensajeRetorno x = bl.Modificar_Producto(Modificar);
             return Ok(new StatusResponse { StatusOk = x.status, StatusMessage = x.mensaje });
         }
     }

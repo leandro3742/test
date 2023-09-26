@@ -67,5 +67,16 @@ namespace DataAccesLayer.Implementations
             else
                 return false;
         }
+
+        public bool existeProducto(string nombre)
+        {
+            // Utiliza SingleOrDefault() para buscar un producto por nombre.
+            if (_db.Productos.SingleOrDefault(i => i.nombre == nombre) != null)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
     }
 }

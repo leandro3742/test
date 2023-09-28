@@ -212,6 +212,8 @@ namespace DataAccesLayer.Migrations
 
                     b.HasKey("id_Producto", "id_Ingrediente");
 
+                    b.HasIndex("id_Ingrediente");
+
                     b.ToTable("Producto_Ingrediente");
                 });
 
@@ -424,6 +426,25 @@ namespace DataAccesLayer.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("DataAccesLayer.Models.Productos_Ingredientes", b =>
+                {
+                    b.HasOne("DataAccesLayer.Models.Ingredientes", "Ingredientes")
+                        .WithMany("ProductoIngredientes")
+                        .HasForeignKey("id_Ingrediente")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DataAccesLayer.Models.Productos", "Productos")
+                        .WithMany("ProductoIngredientes")
+                        .HasForeignKey("id_Producto")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ingredientes");
+
+                    b.Navigation("Productos");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -473,6 +494,16 @@ namespace DataAccesLayer.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DataAccesLayer.Models.Ingredientes", b =>
+                {
+                    b.Navigation("ProductoIngredientes");
+                });
+
+            modelBuilder.Entity("DataAccesLayer.Models.Productos", b =>
+                {
+                    b.Navigation("ProductoIngredientes");
                 });
 #pragma warning restore 612, 618
         }

@@ -129,6 +129,9 @@ builder.Services.AddTransient<IB_Producto, B_Producto>();
 builder.Services.AddTransient<IDAL_ClientePreferencial, DAL_ClientePreferencial>();
 builder.Services.AddTransient<IB_ClientePreferencial, B_ClientePreferencial>();
 
+builder.Services.AddTransient<IBProductos_Ingredientes, BProductos_Ingredientes>();
+builder.Services.AddTransient<IDAL_ProductoIngrediente, DAL_ProductoIngrediente>();
+
 
 var app = builder.Build();
 

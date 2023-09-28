@@ -13,5 +13,6 @@ namespace DataAccesLayer.Interface
         DTIngrediente getDTIngrediente(Ingredientes x);
         DTCategoria getDTCategoria(Categorias x);
         DTProducto getDTProducto(Productos c);
+        DTMesa getDTMesa(Mesas m);
     }
 }

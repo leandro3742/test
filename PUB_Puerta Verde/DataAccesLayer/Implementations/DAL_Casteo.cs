@@ -29,5 +29,18 @@ namespace DataAccesLayer.Implementations
             aux.nombre = x.nombre;
             return aux;
         }
+
+        DTCliente_Preferencial IDAL_Casteo.castDTCliente_Preferencial(ClientesPreferenciales x)
+        {
+            DTCliente_Preferencial aux = new DTCliente_Preferencial();
+            aux.id_Cli_Preferencial = x.id_Cli_Preferencial;
+            aux.nombre = x.nombre;
+            aux.apellido = x.apellido;
+            aux.telefono = x.telefono;
+            aux.saldo = x.saldo;
+            aux.fichasCanje = x.fichasCanje;
+
+            return aux;
+        }
     }
 }

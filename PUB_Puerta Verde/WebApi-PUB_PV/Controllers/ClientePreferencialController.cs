@@ -23,26 +23,27 @@ namespace WebApi_PUB_PV.Controllers
             return Ok(new StatusResponse { StatusOk = x.status, StatusMessage = x.mensaje });
         }
 
-        /*//Actualizar    
-        [HttpPut("/api/actualizarEvento")]
-        public ActionResult<Evento> Put([FromBody] DTEvento value)
+        //Actualizar    
+        [HttpPut("/api/actualizarCliente")]
+        public ActionResult<DTCliente_Preferencial> Put([FromBody] DTCliente_Preferencial value)
         {
-            MensajesEnum x = bl.actualizar_Evento(value);
+            MensajeRetorno x = bl.actualizar_ClientePreferencial(value);
             return Ok(new StatusResponse { StatusOk = x.status, StatusMessage = x.mensaje });
         }
 
         //Listar
-        [HttpGet("/api/listarEventos")]
-        public List<DTEvento> Get()
+        [HttpGet("/api/listarCliente")]
+        public List<DTCliente_Preferencial> Get()
         {
-            return bl.listar_Eventos();
+            return bl.listar_ClientePreferencial();
         }
 
-        //Eliminar
-        [HttpDelete("/api/agregarEvento/{id:int}")]
-        public ActionResult<bool> Delete(int id)
+        ///Eliminar
+        [HttpDelete("/api/bajaCliente/{id:int}")]
+        public ActionResult<bool> BajaCategoria(int id)
         {
-            return Ok(bl.eliminar_Evento(id));
-        }*/
+            MensajeRetorno x = bl.baja_ClientePreferencial(id);
+            return Ok(new StatusResponse { StatusOk = x.status, StatusMessage = x.mensaje });
+        }
     }
 }

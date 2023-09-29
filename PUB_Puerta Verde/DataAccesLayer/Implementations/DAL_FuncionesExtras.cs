@@ -53,10 +53,24 @@ namespace DataAccesLayer.Implementations
                     }
                 }
                 return false;
+            }
+            return false;
+        }      
+
         public bool existeIngrediente(string nombre)
         {
             // Utiliza SingleOrDefault() para buscar un ingrediente por nombre.
             if (_db.Ingredientes.SingleOrDefault(i => i.nombre == nombre) != null)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
+        bool IDAL_FuncionesExtras.existeClienteId(int id)
+        {
+            if (_db.ClientesPreferenciales.SingleOrDefault(i => i.id_Cli_Preferencial == id) != null)
             {
                 return true;
             }

@@ -12,5 +12,11 @@ namespace BusinessLayer.Interfaces
     {
         //Agregar
         MensajeRetorno agregar_ClientePreferencial(DTCliente_Preferencial dtCP);
+        //Actualizar
+        MensajeRetorno actualizar_ClientePreferencial(DTCliente_Preferencial dtCP);
+        //Listar
+        List<DTCliente_Preferencial> listar_ClientePreferencial();
+        //Baja
+        MensajeRetorno baja_ClientePreferencial(int id);
     }
 }

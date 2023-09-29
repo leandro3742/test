@@ -12,5 +12,7 @@ namespace DataAccesLayer.Interface
     {
         DTIngrediente getDTIngrediente(Ingredientes x);
         DTCategoria getDTCategoria(Categorias x);
+
+        DTCliente_Preferencial castDTCliente_Preferencial(ClientesPreferenciales x);
     }
 }

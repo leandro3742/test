@@ -62,7 +62,6 @@ namespace Domain.Entidades
             status = false;
         }
 
-        public void Objeto_Nulo()
         //Ingrediente
         public void Ya_existe_un_Ingrediente_con_el_Nombre_ingresado()
         {
@@ -81,5 +80,24 @@ namespace Domain.Entidades
             mensaje = "El Ingrediente se modifico correctamente";
             status = true;
         }
-    }
+
+        public void No_existe_un_Cliente_con_los_datos_ingresado()
+        {
+            mensaje = "No existe un Cliente con los datos aportados";
+            status = false;
+        }
+
+        public void El_Cliente_se_actualizo_Correctamente()
+        {
+            mensaje = "El Cliente se actualizo correctamente";
+            status = true;
+        }
+
+        public void El_Cliente_se_quito_Correctamente()
+        {
+            mensaje = "El Cliente se dio de baja correctamente";
+            status = true;
+        }
+
+}
 }

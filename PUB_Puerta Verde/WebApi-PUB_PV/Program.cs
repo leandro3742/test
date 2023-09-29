@@ -6,27 +6,13 @@ using DataAccesLayer.Interface;
 using DataAccesLayer.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
+using SignalR;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
-// Add services to the container.
-
 builder.Services.AddDbContext<DataContext>();
-// For Identity
-builder.Services.AddIdentity<Usuarios, IdentityRole>()
-    .AddEntityFrameworkStores<DataContext>()
-    .AddDefaultTokenProviders();
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<DataContext>();
-
 // Adding Authentication
 string? JWT_SECRET = Environment.GetEnvironmentVariable("JWT_SECRET");
 if (string.IsNullOrEmpty(JWT_SECRET))
@@ -58,49 +44,19 @@ builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
     // Reset token valid for 2 hours
     options.TokenLifespan = TimeSpan.FromHours(2);
 });
-
-// Add services to the container.
-builder.Services.AddControllers();
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
+// Add cors builder
+builder.Services.AddCors(options =>
 {
-    c.SwaggerDoc("v1",
-        new OpenApiInfo
-        {
-            Title = "Web API - V1",
-            Version = "v1"
-        }
-     );
-
-    //var filePath = Path.Combine(AppContext.BaseDirectory, "WebAPI.xml");
-    //c.IncludeXmlComments(filePath);
-
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+    options.AddPolicy("CorsPolicy", builder =>
     {
-        Name = "Authorization",
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer",
-        BearerFormat = "JWT",
-        In = ParameterLocation.Header,
-        Description = "JWT Authorization header using the Bearer scheme."
+        builder.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:5173").AllowCredentials();
     });
-
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-        {
-        Reference = new OpenApiReference
-        {
-            Type = ReferenceType.SecurityScheme,
-            Id = "Bearer"
-        }
-    },
-        new string[] {}
-    }});
 });
+
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddSignalR();
 
 /********************************************************************************************************/
 /** Add Dependencies                                                                                   **/
@@ -129,12 +85,11 @@ builder.Services.AddTransient<IB_Producto, B_Producto>();
 builder.Services.AddTransient<IDAL_ClientePreferencial, DAL_ClientePreferencial>();
 builder.Services.AddTransient<IB_ClientePreferencial, B_ClientePreferencial>();
 
-builder.Services.AddTransient<IBProductos_Ingredientes, BProductos_Ingredientes>();
-builder.Services.AddTransient<IDAL_ProductoIngrediente, DAL_ProductoIngrediente>();
-
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
+app.UseCors("CorsPolicy");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -146,14 +101,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+// Add SignalR to the request pipeline
+app.MapHub<ChatHub>("/chatHub");
+
 app.MapControllers();
-
-app.UseCors(builder =>
-{
-    builder
-    .AllowAnyOrigin()
-    .AllowAnyMethod()
-    .AllowAnyHeader();
-});
-
 app.Run();

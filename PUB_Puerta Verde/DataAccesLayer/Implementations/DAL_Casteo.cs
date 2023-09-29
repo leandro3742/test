@@ -50,6 +50,9 @@ namespace DataAccesLayer.Implementations
             aux.saldo = x.saldo;
             aux.fichasCanje = x.fichasCanje;
 
+            return aux;
+        }
+
         public DTMesa getDTMesa(Mesas m)
         {
             DTMesa aux = new DTMesa();

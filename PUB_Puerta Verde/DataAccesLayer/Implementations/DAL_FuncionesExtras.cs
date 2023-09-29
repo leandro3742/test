@@ -71,6 +71,13 @@ namespace DataAccesLayer.Implementations
         bool IDAL_FuncionesExtras.existeClienteId(int id)
         {
             if (_db.ClientesPreferenciales.SingleOrDefault(i => i.id_Cli_Preferencial == id) != null)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
         public bool existeProducto(string nombre)
         {
             // Utiliza SingleOrDefault() para buscar un producto por nombre.

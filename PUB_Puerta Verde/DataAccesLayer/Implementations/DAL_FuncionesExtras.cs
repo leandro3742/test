@@ -55,9 +55,9 @@ namespace DataAccesLayer.Implementations
                 return false;
             }
             return false;
-        }      
+        }
 
-        public bool existeIngrediente(string nombre)
+        bool IDAL_FuncionesExtras.existeIngrediente(string nombre)
         {
             // Utiliza SingleOrDefault() para buscar un ingrediente por nombre.
             if (_db.Ingredientes.SingleOrDefault(i => i.nombre == nombre) != null)
@@ -71,6 +71,21 @@ namespace DataAccesLayer.Implementations
         bool IDAL_FuncionesExtras.existeClienteId(int id)
         {
             if (_db.ClientesPreferenciales.SingleOrDefault(i => i.id_Cli_Preferencial == id) != null)
+        public bool existeProducto(string nombre)
+        {
+            // Utiliza SingleOrDefault() para buscar un producto por nombre.
+            if (_db.Productos.SingleOrDefault(i => i.nombre == nombre) != null)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
+        public bool existeMesa(int id_Mesa)
+        {
+            // Utiliza SingleOrDefault() para buscar una Mesa.
+            if (_db.Mesas.SingleOrDefault(i => i.id_Mesa == id_Mesa) != null)
             {
                 return true;
             }

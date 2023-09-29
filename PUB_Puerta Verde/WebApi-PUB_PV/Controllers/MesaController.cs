@@ -1,83 +1,50 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BusinessLayer.Interfaces;
+using Domain.DT;
+using Domain.Entidades;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebApi_PUB_PV.Models;
 
 namespace WebApi_PUB_PV.Controllers
 {
     public class MesaController : Controller
     {
-        // GET: MesaController
-        public ActionResult Index()
+
+        private IB_Mesa bl;
+        public MesaController(IB_Mesa _bl)
         {
-            return View();
+            bl = _bl;
         }
 
-        // GET: MesaController/Details/5
-        public ActionResult Details(int id)
+        //Agregar
+        [HttpPost("/api/agregarMesa")]
+        public ActionResult<DTMesa> Post([FromBody] DTMesa value)
         {
-            return View();
+            MensajeRetorno x = bl.agregar_Mesa(value);
+            return Ok(new StatusResponse { StatusOk = x.status, StatusMessage = x.mensaje });
         }
 
-        // GET: MesaController/Create
-        public ActionResult Create()
+        //Listar
+        [HttpGet("/api/listarMesas")]
+        public List<DTMesa> Get()
         {
-            return View();
+            return bl.listar_Mesas();
         }
 
-        // POST: MesaController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        //Eliminar
+        [HttpDelete("/api/bajaMesa/{id:int}")]
+        public ActionResult<bool> BajaMesa(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            MensajeRetorno x = bl.baja_Mesa(id);
+            return Ok(new StatusResponse { StatusOk = x.status, StatusMessage = x.mensaje });
         }
 
-        // GET: MesaController/Edit/5
-        public ActionResult Edit(int id)
+        //Modificar
+        [HttpPost("/api/modificarMesa")]
+        public ActionResult<DTMesa> Put([FromBody] DTMesa Modificar)
         {
-            return View();
-        }
-
-        // POST: MesaController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: MesaController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: MesaController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            MensajeRetorno x = bl.Modificar_Mesa(Modificar);
+            return Ok(new StatusResponse { StatusOk = x.status, StatusMessage = x.mensaje });
         }
     }
 }

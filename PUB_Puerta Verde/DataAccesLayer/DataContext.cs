@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +35,16 @@ namespace DataAccesLayer
         public DbSet<Productos_Ingredientes> Productos_Ingredientes { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Productos_Ingredientes>()
+                .HasOne(pi => pi.Productos)
+                .WithMany(p => p.ProductoIngredientes)
+                .HasForeignKey(pi => pi.id_Producto);
+
+            builder.Entity<Productos_Ingredientes>()
+                .HasOne(pi => pi.Ingredientes)
+                .WithMany(i => i.ProductoIngredientes)
+                .HasForeignKey(pi => pi.id_Ingrediente);
+
             base.OnModelCreating(builder);
         }
     }

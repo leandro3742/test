@@ -12,8 +12,12 @@ namespace DataAccesLayer.Models
         public int id_Ingrediente { get; set; }
         public string nombre { get; set; }
         public int stock { get; set; }
+
+        public ICollection<Productos_Ingredientes> ProductoIngredientes { get; set; }
+
         [ForeignKey("Categoria")]
         public int? id_Categoria { get; set; }
+
 
         internal static Ingredientes SetIngrediente(DTIngrediente x)
         {

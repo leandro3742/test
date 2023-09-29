@@ -20,7 +20,8 @@ namespace DataAccesLayer.Models
         public string descripcion { get; set; }
         public float precio { get; set; }
         public bool registro_Activo { get; set; }
-        //falta la lista e ingedientes
+        public ICollection<Productos_Ingredientes> ProductoIngredientes { get; set; }
+
         internal static Productos SetProducto(DTProducto p)
         {
             Productos aux = new Productos();

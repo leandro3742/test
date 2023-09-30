@@ -18,6 +18,7 @@ namespace DataAccesLayer.Models
         public int id_Mesa { get; set; }
         public bool enUso { get; set; }
         public bool registro_Activo { get; set; }
+        public float precioTotal { get; set; }
 
         internal static Mesas SetMesa(DTMesa p)
         {

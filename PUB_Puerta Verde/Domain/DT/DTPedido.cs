@@ -1,14 +1,12 @@
-﻿using Domain.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Entidades
+namespace Domain.DT
 {
-    public class Pedido
+    public class DTPedido
     {
         public int id_Pedido { get; set; }
         public float valorPedido { get; set; }
@@ -21,7 +19,7 @@ namespace Domain.Entidades
         public DateTime fecha_ingreso { get; set; }
         public string numero_movil { get; set; }
 
-        public Pedido()
+        public DTPedido()
         {
             hora_ingreso = DateTime.Today;
             fecha_ingreso = DateTime.Today;
@@ -29,7 +27,7 @@ namespace Domain.Entidades
             estadoProceso = false;
         }
 
-        public Pedido(int id_Pedido, float valorPedido, bool pago, string username, int id_Cli_Preferencial, int id_Mesa, string numero_movil)
+        public DTPedido(int id_Pedido, float valorPedido, bool pago, string username, int id_Cli_Preferencial, int id_Mesa, string numero_movil)
         {
             this.id_Pedido = id_Pedido;
             this.valorPedido = valorPedido;

@@ -110,6 +110,9 @@ namespace DataAccesLayer.Migrations
                     b.Property<bool>("enUso")
                         .HasColumnType("boolean");
 
+                    b.Property<float>("precioTotal")
+                        .HasColumnType("real");
+
                     b.Property<bool>("registro_Activo")
                         .HasColumnType("boolean");
 
@@ -126,17 +129,14 @@ namespace DataAccesLayer.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id_Pedido"));
 
-                    b.Property<bool>("estadoPago")
-                        .HasColumnType("boolean");
-
                     b.Property<bool>("estadoProceso")
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("fecha_ingreso")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<TimeSpan>("hora_ingreso")
-                        .HasColumnType("interval");
+                    b.Property<DateTime>("hora_ingreso")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("id_Cli_Preferencial")
                         .HasColumnType("integer");
@@ -144,8 +144,9 @@ namespace DataAccesLayer.Migrations
                     b.Property<int>("id_Mesa")
                         .HasColumnType("integer");
 
-                    b.Property<int>("numero_movil")
-                        .HasColumnType("integer");
+                    b.Property<string>("numero_movil")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<bool>("pago")
                         .HasColumnType("boolean");

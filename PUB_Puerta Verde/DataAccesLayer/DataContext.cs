@@ -20,7 +20,7 @@ namespace DataAccesLayer
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured){
-                optionsBuilder.UseNpgsql("Host=containers-us-west-73.railway.app;Port=6289;Username=postgres;Password=6cVoff1igdc7HVaqQfA1;Database=railway");
+                optionsBuilder.UseNpgsql("Host=containers-us-west-163.railway.app;Port=7561;Username=postgres;Password=9zP2UTHu6mu6NTW2HSwW;Database=railway");
             }
         }
 

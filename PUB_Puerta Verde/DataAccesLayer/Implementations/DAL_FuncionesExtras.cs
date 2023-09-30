@@ -1,5 +1,6 @@
 ﻿using DataAccesLayer.Interface;
 using DataAccesLayer.Models;
+using Domain.DT;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -93,6 +94,17 @@ namespace DataAccesLayer.Implementations
         {
             // Utiliza SingleOrDefault() para buscar una Mesa.
             if (_db.Mesas.SingleOrDefault(i => i.id_Mesa == id_Mesa) != null)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
+        public bool existePedido(int id_Pedido)
+        {
+            // Utiliza SingleOrDefault() para buscar una Mesa.
+            if (_db.Pedidos.SingleOrDefault(i => i.id_Pedido == id_Pedido) != null)
             {
                 return true;
             }

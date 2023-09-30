@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Domain.DT;
+using Domain.Entidades;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,13 @@ namespace BusinessLayer.Interfaces
 {
     public interface IB_Pedido
     {
+        //Agregar
+        MensajeRetorno agregar_Pedido(DTPedido dtP);
+        //Actualizar
+        //MensajeRetorno actualizar_Pedido(DTPedido dtP);
+        //Listar
+        //List<DTPedido> listar_Pedido();
+        //Baja
+        //MensajeRetorno baja_Pedido(int id);
     }
 }

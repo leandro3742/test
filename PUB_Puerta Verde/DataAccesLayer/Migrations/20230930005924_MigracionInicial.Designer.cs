@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccesLayer.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230925050416_Migracion5")]
-    partial class Migracion5
+    [Migration("20230930005924_MigracionInicial")]
+    partial class MigracionInicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -70,8 +70,9 @@ namespace DataAccesLayer.Migrations
                     b.Property<float>("saldo")
                         .HasColumnType("real");
 
-                    b.Property<int>("telefono")
-                        .HasColumnType("integer");
+                    b.Property<string>("telefono")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("id_Cli_Preferencial");
 
@@ -112,6 +113,9 @@ namespace DataAccesLayer.Migrations
                     b.Property<bool>("enUso")
                         .HasColumnType("boolean");
 
+                    b.Property<float>("precioTotal")
+                        .HasColumnType("real");
+
                     b.Property<bool>("registro_Activo")
                         .HasColumnType("boolean");
 
@@ -128,17 +132,14 @@ namespace DataAccesLayer.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id_Pedido"));
 
-                    b.Property<bool>("estadoPago")
-                        .HasColumnType("boolean");
-
                     b.Property<bool>("estadoProceso")
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("fecha_ingreso")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<TimeSpan>("hora_ingreso")
-                        .HasColumnType("interval");
+                    b.Property<DateTime>("hora_ingreso")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("id_Cli_Preferencial")
                         .HasColumnType("integer");
@@ -146,8 +147,9 @@ namespace DataAccesLayer.Migrations
                     b.Property<int>("id_Mesa")
                         .HasColumnType("integer");
 
-                    b.Property<int>("numero_movil")
-                        .HasColumnType("integer");
+                    b.Property<string>("numero_movil")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<bool>("pago")
                         .HasColumnType("boolean");
@@ -213,6 +215,8 @@ namespace DataAccesLayer.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("id_Producto", "id_Ingrediente");
+
+                    b.HasIndex("id_Ingrediente");
 
                     b.ToTable("Producto_Ingrediente");
                 });
@@ -426,6 +430,25 @@ namespace DataAccesLayer.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("DataAccesLayer.Models.Productos_Ingredientes", b =>
+                {
+                    b.HasOne("DataAccesLayer.Models.Ingredientes", "Ingredientes")
+                        .WithMany("ProductoIngredientes")
+                        .HasForeignKey("id_Ingrediente")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DataAccesLayer.Models.Productos", "Productos")
+                        .WithMany("ProductoIngredientes")
+                        .HasForeignKey("id_Producto")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ingredientes");
+
+                    b.Navigation("Productos");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -475,6 +498,16 @@ namespace DataAccesLayer.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DataAccesLayer.Models.Ingredientes", b =>
+                {
+                    b.Navigation("ProductoIngredientes");
+                });
+
+            modelBuilder.Entity("DataAccesLayer.Models.Productos", b =>
+                {
+                    b.Navigation("ProductoIngredientes");
                 });
 #pragma warning restore 612, 618
         }

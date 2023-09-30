@@ -13,6 +13,10 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
 builder.Services.AddDbContext<DataContext>();
+// For Identity
+builder.Services.AddIdentity<Usuarios, IdentityRole>()
+    .AddEntityFrameworkStores<DataContext>()
+    .AddDefaultTokenProviders();
 // Adding Authentication
 string? JWT_SECRET = Environment.GetEnvironmentVariable("JWT_SECRET");
 if (string.IsNullOrEmpty(JWT_SECRET))

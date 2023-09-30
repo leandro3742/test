@@ -1,83 +1,49 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BusinessLayer.Interfaces;
+using Domain.DT;
+using Domain.Entidades;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebApi_PUB_PV.Models;
 
 namespace WebApi_PUB_PV.Controllers
 {
     public class PedidoController : Controller
     {
-        // GET: PedidoController
-        public ActionResult Index()
+        private IB_Pedido bl;
+        public PedidoController(IB_Pedido _bl)
         {
-            return View();
+            bl = _bl;
         }
 
-        // GET: PedidoController/Details/5
-        public ActionResult Details(int id)
+        //Agregar
+        [HttpPost("/api/agregarPedido")]
+        public ActionResult<DTPedido> Post([FromBody] DTPedido value)
         {
-            return View();
+            MensajeRetorno x = bl.agregar_Pedido(value);
+            return Ok(new StatusResponse { StatusOk = x.status, StatusMessage = x.mensaje });
         }
 
-        // GET: PedidoController/Create
-        public ActionResult Create()
+        /*//Actualizar    
+        [HttpPut("/api/actualizarCliente")]
+        public ActionResult<DTCliente_Preferencial> Put([FromBody] DTCliente_Preferencial value)
         {
-            return View();
+            MensajeRetorno x = bl.actualizar_ClientePreferencial(value);
+            return Ok(new StatusResponse { StatusOk = x.status, StatusMessage = x.mensaje });
         }
 
-        // POST: PedidoController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        //Listar
+        [HttpGet("/api/listarCliente")]
+        public List<DTCliente_Preferencial> Get()
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return bl.listar_ClientePreferencial();
         }
 
-        // GET: PedidoController/Edit/5
-        public ActionResult Edit(int id)
+        ///Eliminar
+        [HttpDelete("/api/bajaCliente/{id:int}")]
+        public ActionResult<bool> BajaCategoria(int id)
         {
-            return View();
-        }
-
-        // POST: PedidoController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: PedidoController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: PedidoController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+            MensajeRetorno x = bl.baja_ClientePreferencial(id);
+            return Ok(new StatusResponse { StatusOk = x.status, StatusMessage = x.mensaje });
+        }*/
     }
 }

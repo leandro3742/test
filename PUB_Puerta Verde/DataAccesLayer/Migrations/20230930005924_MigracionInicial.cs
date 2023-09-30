@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccesLayer.Migrations
 {
     /// <inheritdoc />
-    public partial class MigracionIni : Migration
+    public partial class MigracionInicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,6 +31,9 @@ namespace DataAccesLayer.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
+                    nombre = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    apellido = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
+                    registro_Activo = table.Column<bool>(type: "boolean", nullable: false),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -57,7 +60,8 @@ namespace DataAccesLayer.Migrations
                 {
                     id_Categoria = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    nombre = table.Column<string>(type: "text", nullable: false)
+                    nombre = table.Column<string>(type: "text", nullable: false),
+                    registro_Activo = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -72,8 +76,10 @@ namespace DataAccesLayer.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     nombre = table.Column<string>(type: "text", nullable: false),
                     apellido = table.Column<string>(type: "text", nullable: false),
-                    telefono = table.Column<int>(type: "integer", nullable: false),
-                    saldo = table.Column<float>(type: "real", nullable: false)
+                    telefono = table.Column<string>(type: "text", nullable: false),
+                    saldo = table.Column<float>(type: "real", nullable: false),
+                    fichasCanje = table.Column<int>(type: "integer", nullable: false),
+                    registro_Activo = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -101,7 +107,9 @@ namespace DataAccesLayer.Migrations
                 {
                     id_Mesa = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    enUso = table.Column<bool>(type: "boolean", nullable: false)
+                    enUso = table.Column<bool>(type: "boolean", nullable: false),
+                    registro_Activo = table.Column<bool>(type: "boolean", nullable: false),
+                    precioTotal = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -115,11 +123,10 @@ namespace DataAccesLayer.Migrations
                     id_Pedido = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     valorPedido = table.Column<float>(type: "real", nullable: false),
-                    estadoPago = table.Column<bool>(type: "boolean", nullable: false),
                     estadoProceso = table.Column<bool>(type: "boolean", nullable: false),
-                    hora_ingreso = table.Column<TimeSpan>(type: "interval", nullable: false),
+                    hora_ingreso = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     fecha_ingreso = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    numero_movil = table.Column<int>(type: "integer", nullable: false),
+                    numero_movil = table.Column<string>(type: "text", nullable: false),
                     pago = table.Column<bool>(type: "boolean", nullable: false),
                     username = table.Column<string>(type: "text", nullable: false),
                     id_Cli_Preferencial = table.Column<int>(type: "integer", nullable: false),
@@ -150,23 +157,12 @@ namespace DataAccesLayer.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     nombre = table.Column<string>(type: "text", nullable: false),
                     descripcion = table.Column<string>(type: "text", nullable: false),
-                    precio = table.Column<float>(type: "real", nullable: false)
+                    precio = table.Column<float>(type: "real", nullable: false),
+                    registro_Activo = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Producto", x => x.id_Producto);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Producto_Ingrediente",
-                columns: table => new
-                {
-                    id_Producto = table.Column<int>(type: "integer", nullable: false),
-                    id_Ingrediente = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Producto_Ingrediente", x => new { x.id_Producto, x.id_Ingrediente });
                 });
 
             migrationBuilder.CreateTable(
@@ -275,6 +271,30 @@ namespace DataAccesLayer.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Producto_Ingrediente",
+                columns: table => new
+                {
+                    id_Producto = table.Column<int>(type: "integer", nullable: false),
+                    id_Ingrediente = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Producto_Ingrediente", x => new { x.id_Producto, x.id_Ingrediente });
+                    table.ForeignKey(
+                        name: "FK_Producto_Ingrediente_Ingrediente_id_Ingrediente",
+                        column: x => x.id_Ingrediente,
+                        principalTable: "Ingrediente",
+                        principalColumn: "id_Ingrediente",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Producto_Ingrediente_Producto_id_Producto",
+                        column: x => x.id_Producto,
+                        principalTable: "Producto",
+                        principalColumn: "id_Producto",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -311,6 +331,11 @@ namespace DataAccesLayer.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Producto_Ingrediente_id_Ingrediente",
+                table: "Producto_Ingrediente",
+                column: "id_Ingrediente");
         }
 
         /// <inheritdoc />
@@ -338,9 +363,6 @@ namespace DataAccesLayer.Migrations
                 name: "Cliente_Preferencial");
 
             migrationBuilder.DropTable(
-                name: "Ingrediente");
-
-            migrationBuilder.DropTable(
                 name: "Mesa");
 
             migrationBuilder.DropTable(
@@ -350,9 +372,6 @@ namespace DataAccesLayer.Migrations
                 name: "Pedido_Producto");
 
             migrationBuilder.DropTable(
-                name: "Producto");
-
-            migrationBuilder.DropTable(
                 name: "Producto_Ingrediente");
 
             migrationBuilder.DropTable(
@@ -360,6 +379,12 @@ namespace DataAccesLayer.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Ingrediente");
+
+            migrationBuilder.DropTable(
+                name: "Producto");
         }
     }
 }

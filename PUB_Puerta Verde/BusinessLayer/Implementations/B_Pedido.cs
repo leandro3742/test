@@ -6,6 +6,7 @@ using Domain.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,6 +25,7 @@ namespace BusinessLayer.Implementations
             _fu = fu;
         }
 
+        //Agregar
         MensajeRetorno IB_Pedido.agregar_Pedido(DTPedido dtP)
         {
             MensajeRetorno men = new MensajeRetorno();
@@ -31,19 +33,45 @@ namespace BusinessLayer.Implementations
             {
                 if (!_fu.existePedido(dtP.id_Pedido))
                 {
-                     if (_dal.set_Cliente(dtP) == true)
-                     {
-                        men.mensaje = "El Pedido se guardo Correctamente";
-                        men.status = true;
+                    if (_fu.existeUsuario(dtP.username))
+                    {
+                        if (_fu.existeMesa(dtP.id_Mesa))
+                        {
+                            if (!_fu.mesaEnUso(dtP.id_Mesa))
+                            {
+                                if (_dal.set_Cliente(dtP) == true)
+                                {
+                                    _fu.agregarPrecioaMesa(dtP.valorPedido, dtP.id_Mesa);
+                                    men.mensaje = "El Pedido se guardo Correctamente";
+                                    men.status = true;
+                                    return men;
+                                }
+                                else
+                                {
+                                    men.Exepcion_no_Controlada();
+                                    return men;
+                                }
+                            }
+                            else
+                            {
+                                men.mensaje = "La mesa asignada ya esta en uso";
+                                men.status = false;
+                                return men;
+                            }
+                        }
+                        else
+                        {
+                            men.mensaje = "La mesa asignada no existe en el sistema";
+                            men.status = false;
+                            return men;
+                        }
+                    }
+                    else
+                    {
+                        men.mensaje = "El usuario no existe";
+                        men.status = false;
                         return men;
-                     }
-                     else
-                     {
-                         men.Exepcion_no_Controlada();
-                         return men;
-                     }
-
-
+                    }
                 }
                 else
                 {
@@ -59,27 +87,49 @@ namespace BusinessLayer.Implementations
             }
         }
 
-        /*MensajeRetorno IB_ClientePreferencial.actualizar_ClientePreferencial(DTCliente_Preferencial dtCP)
+        //Actualizar
+        MensajeRetorno IB_Pedido.actualizar_Pedido(DTPedido dtP)
         {
             MensajeRetorno men = new MensajeRetorno();
-            if (dtCP != null)
+            if (dtP != null)
             {
-                if (_fu.existeClienteId(dtCP.id_Cli_Preferencial))
+                if (_fu.existePedido(dtP.id_Pedido))
                 {
-                    if (_dal.update_Cliente(dtCP) == true)
+                    if (_fu.existeUsuario(dtP.username))
                     {
-                        men.El_Cliente_se_actualizo_Correctamente();
-                        return men;
+                        if (_fu.existeMesa(dtP.id_Mesa))
+                        {
+                            if (_dal.update_Pedido(dtP) == true)
+                            {
+                                _fu.agregarPrecioaMesa(dtP.valorPedido, dtP.id_Mesa);
+                                men.mensaje = "El Pedido se actualizo Correctamente";
+                                men.status = true;
+                                return men;
+                            }
+                            else
+                            {
+                                men.Exepcion_no_Controlada();
+                                return men;
+                            }
+                        }
+                        else
+                        {
+                            men.mensaje = "La mesa asignada no existe en el sistema";
+                            men.status = false;
+                            return men;
+                        }
                     }
                     else
                     {
-                        men.Exepcion_no_Controlada();
+                        men.mensaje = "El usuario no existe";
+                        men.status = false;
                         return men;
                     }
                 }
                 else
                 {
-                    men.No_existe_un_Cliente_con_los_datos_ingresado();
+                    men.mensaje = "No existe un pedido con los datos ingresados";
+                    men.status = false;
                     return men;
                 }
             }
@@ -90,24 +140,37 @@ namespace BusinessLayer.Implementations
             }
         }
 
-        List<DTCliente_Preferencial> IB_ClientePreferencial.listar_ClientePreferencial()
+        //Listar
+        List<DTPedido> IB_Pedido.listar_Pedidos()
         {
-            List<DTCliente_Preferencial> clientes = new List<DTCliente_Preferencial>();
-            foreach (ClientesPreferenciales x in _dal.get_Cliente())
+            List<DTPedido> pedidos = new List<DTPedido>();
+            foreach (Pedidos x in _dal.get_Pedidos())
             {
-                if (x.registro_Activo == true)
-                    clientes.Add(_cas.castDTCliente_Preferencial(x));
+                pedidos.Add(_cas.castDTPedido(x));
             }
 
-            return clientes;
+            return pedidos;
         }
 
-        MensajeRetorno IB_ClientePreferencial.baja_ClientePreferencial(int id)
+        //Listar Activos
+        List<DTPedido> IB_Pedido.listar_PedidosActivos()
+        {
+            List<DTPedido> pedidos = new List<DTPedido>();
+            foreach (Pedidos x in _dal.get_PedidosActivos())
+            {
+                pedidos.Add(_cas.castDTPedido(x));
+            }
+
+            return pedidos;
+        }
+
+        MensajeRetorno IB_Pedido.baja_Pedido(int id)
         {
             MensajeRetorno men = new MensajeRetorno();
-            if (_dal.baja_Cliente(id) == true)
+            if (_dal.baja_Pedido(id) == true)
             {
-                men.El_Cliente_se_quito_Correctamente();
+                men.mensaje = "El Pedido se dio de baja correctamente";
+                men.status = true;
                 return men;
             }
             else
@@ -115,6 +178,6 @@ namespace BusinessLayer.Implementations
                 men.Exepcion_no_Controlada();
                 return men;
             }
-        }*/
+        }
     }
 }

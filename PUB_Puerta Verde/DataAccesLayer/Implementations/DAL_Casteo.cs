@@ -60,5 +60,21 @@ namespace DataAccesLayer.Implementations
             aux.enUso = m.enUso;
             return aux;
         }
+
+        public DTPedido castDTPedido(Pedidos p)
+        {
+            DTPedido aux = new DTPedido();
+            aux.id_Pedido = p.id_Pedido;
+            aux.valorPedido = p.valorPedido;
+            aux.pago = p.pago;
+            aux.estadoProceso = p.estadoProceso;
+            aux.username = p.username;
+            aux.id_Cli_Preferencial = p.id_Cli_Preferencial;
+            aux.id_Mesa = p.id_Mesa;
+            aux.fecha_ingreso = p.fecha_ingreso;
+            aux.hora_ingreso = p.hora_ingreso;
+            aux.numero_movil = p.numero_movil;
+            return aux;
+        }
     }
 }

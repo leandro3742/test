@@ -18,5 +18,8 @@ namespace DataAccesLayer.Interface
         bool existeMesa(int id_Mesa);
         bool existeProducto(string nombre);
         bool existePedido(int id);
+        bool existeUsuario(string username);
+        bool mesaEnUso(int idMesa);
+        void agregarPrecioaMesa(float valor, int idMesa);
     }
 }

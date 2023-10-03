@@ -31,6 +31,7 @@ namespace DataAccesLayer.Implementations
             {
                 // Modifica las propiedades del Producto.
                 MesaEncontrada.enUso = dtm.enUso;
+                MesaEncontrada.precioTotal = MesaEncontrada.precioTotal + dtm.precioTotal;
                 // Guarda los cambios en la base de datos.
                 _db.SaveChanges();
 

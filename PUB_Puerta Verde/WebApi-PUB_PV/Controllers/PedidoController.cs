@@ -23,27 +23,34 @@ namespace WebApi_PUB_PV.Controllers
             return Ok(new StatusResponse { StatusOk = x.status, StatusMessage = x.mensaje });
         }
 
-        /*//Actualizar    
-        [HttpPut("/api/actualizarCliente")]
-        public ActionResult<DTCliente_Preferencial> Put([FromBody] DTCliente_Preferencial value)
+        //Actualizar    
+        [HttpPut("/api/actualizarPedido")]
+        public ActionResult<DTPedido> Put([FromBody] DTPedido value)
         {
-            MensajeRetorno x = bl.actualizar_ClientePreferencial(value);
+            MensajeRetorno x = bl.actualizar_Pedido(value);
             return Ok(new StatusResponse { StatusOk = x.status, StatusMessage = x.mensaje });
         }
 
         //Listar
-        [HttpGet("/api/listarCliente")]
-        public List<DTCliente_Preferencial> Get()
+        [HttpGet("/api/listarPedidos")]
+        public List<DTPedido> Get()
         {
-            return bl.listar_ClientePreferencial();
+            return bl.listar_Pedidos();
+        }
+
+        //Listar Activos
+        [HttpGet("/api/listarPedidosActivos")]
+        public List<DTPedido> GetActivos()
+        {
+            return bl.listar_PedidosActivos();
         }
 
         ///Eliminar
-        [HttpDelete("/api/bajaCliente/{id:int}")]
-        public ActionResult<bool> BajaCategoria(int id)
+        [HttpDelete("/api/bajaPedido/{id:int}")]
+        public ActionResult<bool> BajaPedido(int id)
         {
-            MensajeRetorno x = bl.baja_ClientePreferencial(id);
+            MensajeRetorno x = bl.baja_Pedido(id);
             return Ok(new StatusResponse { StatusOk = x.status, StatusMessage = x.mensaje });
-        }*/
+        }
     }
 }

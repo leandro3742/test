@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataAccesLayer.Implementations
 {
-    public class DAL_Pedido: IDAL_Pedido
+    public class DAL_Pedido : IDAL_Pedido
     {
         private readonly DataContext _db;
         public DAL_Pedido(DataContext db)
@@ -17,12 +17,72 @@ namespace DataAccesLayer.Implementations
             _db = db;
         }
 
+        //Agregar
         public bool set_Cliente(DTPedido dtP)
         {
             Pedidos aux = Pedidos.SetPedido(dtP);
             try
             {
                 _db.Pedidos.Add(aux);
+                _db.SaveChanges();
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
+
+        //Actualizar
+        bool IDAL_Pedido.update_Pedido(DTPedido dtP)
+        {
+            Pedidos aux = null;
+            aux = _db.Pedidos.FirstOrDefault(pe => pe.id_Pedido == dtP.id_Pedido);
+
+            aux.valorPedido = dtP.valorPedido;
+            aux.pago = dtP.pago;
+            aux.username = dtP.username;
+            aux.id_Cli_Preferencial = dtP.id_Cli_Preferencial;
+            aux.estadoProceso = dtP.estadoProceso;
+            aux.fecha_ingreso = dtP.fecha_ingreso;
+            aux.hora_ingreso = dtP.hora_ingreso;
+            aux.numero_movil = dtP.numero_movil;
+
+            try
+            {
+                _db.Update(aux);
+                _db.SaveChanges();
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
+
+        //Listar Activos 
+        List<Pedidos> IDAL_Pedido.get_PedidosActivos()
+        {
+            return _db.Pedidos.Where(x => x.estadoProceso).Select(x => x.GetPedido()).ToList();
+        }
+
+        //Listar
+        List<Pedidos> IDAL_Pedido.get_Pedidos()
+        {
+            return _db.Pedidos.Select(x => x.GetPedido()).ToList();
+        }
+
+        //Baja 
+        bool IDAL_Pedido.baja_Pedido(int id)
+        {
+            Pedidos aux = null;
+            aux = _db.Pedidos.FirstOrDefault(ped => ped.id_Pedido == id);
+
+            aux.estadoProceso = false;
+
+            try
+            {
+                _db.Update(aux);
                 _db.SaveChanges();
             }
             catch

@@ -103,13 +103,44 @@ namespace DataAccesLayer.Implementations
 
         public bool existePedido(int id_Pedido)
         {
-            // Utiliza SingleOrDefault() para buscar una Mesa.
             if (_db.Pedidos.SingleOrDefault(i => i.id_Pedido == id_Pedido) != null)
             {
                 return true;
             }
             else
                 return false;
+        }
+
+        public bool existeUsuario(string username)
+        {
+            if (_db.Users.SingleOrDefault(i => i.UserName == username) != null)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
+        public bool mesaEnUso(int idMesa)
+        {
+            Mesas aux = _db.Mesas.SingleOrDefault(i => i.id_Mesa == idMesa);
+            if (aux != null && aux.enUso == false)
+            {
+                return false;
+            }
+            else
+            { 
+                return true;
+            }
+        }
+
+        public void agregarPrecioaMesa(float valor, int idMesa)
+        {
+            Mesas aux = _db.Mesas.SingleOrDefault(i => i.id_Mesa == idMesa);
+            aux.precioTotal = valor;
+            
+            _db.Mesas.Update(aux);
+            _db.SaveChanges();
         }
     }
 }

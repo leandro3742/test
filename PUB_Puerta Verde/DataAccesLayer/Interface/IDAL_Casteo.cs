@@ -15,5 +15,6 @@ namespace DataAccesLayer.Interface
         DTCliente_Preferencial castDTCliente_Preferencial(ClientesPreferenciales x);
         DTProducto getDTProducto(Productos c);
         DTMesa getDTMesa(Mesas m);
+        DTPedido castDTPedido(Pedidos m);
     }
 }

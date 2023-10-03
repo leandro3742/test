@@ -13,10 +13,12 @@ namespace BusinessLayer.Interfaces
         //Agregar
         MensajeRetorno agregar_Pedido(DTPedido dtP);
         //Actualizar
-        //MensajeRetorno actualizar_Pedido(DTPedido dtP);
+        MensajeRetorno actualizar_Pedido(DTPedido dtP);
         //Listar
-        //List<DTPedido> listar_Pedido();
+        List<DTPedido> listar_Pedidos();
+        //ListarActivos
+        List<DTPedido> listar_PedidosActivos();
         //Baja
-        //MensajeRetorno baja_Pedido(int id);
+        MensajeRetorno baja_Pedido(int id);
     }
 }

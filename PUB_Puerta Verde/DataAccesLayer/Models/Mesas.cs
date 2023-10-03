@@ -25,6 +25,7 @@ namespace DataAccesLayer.Models
             Mesas aux = new Mesas();
             aux.id_Mesa = p.id_Mesa;
             aux.enUso = p.enUso;
+            aux.precioTotal = p.precioTotal;
             aux.registro_Activo = true;
             return aux;
         }
@@ -35,6 +36,7 @@ namespace DataAccesLayer.Models
             aux.id_Mesa = id_Mesa;
             aux.enUso = enUso;
             aux.registro_Activo = registro_Activo;
+            aux.precioTotal = precioTotal;
             return aux;
         }
     }

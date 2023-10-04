@@ -23,6 +23,7 @@ namespace DataAccesLayer.Models
         public DateTime fecha_ingreso { get; set; }
         public string numero_movil { get; set; }
         public bool pago { get; set; }
+        public string observaciones { get; set; }
 
         [ForeignKey("User")]
         public string username { get; set; }
@@ -47,6 +48,7 @@ namespace DataAccesLayer.Models
             aux.username = x.username;
             aux.id_Cli_Preferencial = x.id_Cli_Preferencial;
             aux.id_Mesa = x.id_Mesa;
+            aux.observaciones = x.observaciones;
 
             //aux.registro_Activo = true;
 
@@ -66,6 +68,7 @@ namespace DataAccesLayer.Models
             aux.username = username;
             aux.id_Cli_Preferencial = id_Cli_Preferencial;
             aux.id_Mesa = id_Mesa;
+            aux.observaciones = observaciones;
 
             //aux.registro_Activo = registro_Activo;
 

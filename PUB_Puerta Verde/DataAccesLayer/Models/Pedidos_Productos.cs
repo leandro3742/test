@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.DT;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,5 +15,16 @@ namespace DataAccesLayer.Models
     {
         public int id_Pedido { get; set; }
         public int id_Producto { get; set; }
+
+
+        public static Pedidos_Productos SetPedido_Producto(int idPedido, int idProducto)
+        {
+            Pedidos_Productos aux = new Pedidos_Productos();
+
+            aux.id_Pedido = idPedido;
+            aux.id_Producto = idProducto;
+
+            return aux;
+        }
     }
 }

@@ -21,10 +21,20 @@ namespace DataAccesLayer.Implementations
         public bool set_Cliente(DTPedido dtP)
         {
             Pedidos aux = Pedidos.SetPedido(dtP);
+            Pedidos_Productos aux2 = null;
             try
             {
                 _db.Pedidos.Add(aux);
                 _db.SaveChanges();
+
+                int idPedido = aux.id_Pedido;
+
+                foreach (int i in dtP.list_IdProductos)
+                {
+                    aux2 = Pedidos_Productos.SetPedido_Producto(idPedido, i);
+                    _db.Pedidos_Productos.Add(aux2);
+                    _db.SaveChanges();
+                }
             }
             catch
             {
@@ -47,11 +57,25 @@ namespace DataAccesLayer.Implementations
             aux.fecha_ingreso = dtP.fecha_ingreso;
             aux.hora_ingreso = dtP.hora_ingreso;
             aux.numero_movil = dtP.numero_movil;
+            aux.observaciones = dtP.observaciones;
+            Pedidos_Productos aux2 = null;
 
             try
             {
                 _db.Update(aux);
                 _db.SaveChanges();
+
+                foreach(int x in dtP.list_IdProductos)
+                {
+                    aux2 = null; 
+                    aux2 = _db.Pedidos_Productos.FirstOrDefault(ped => ped.id_Pedido == dtP.id_Pedido && ped.id_Producto == x);
+                    if (aux2 == null)
+                    {
+                        aux2 = Pedidos_Productos.SetPedido_Producto(dtP.id_Pedido, x);
+                        _db.Pedidos_Productos.Add(aux2);
+                        _db.SaveChanges();
+                    }
+                }
             }
             catch
             {

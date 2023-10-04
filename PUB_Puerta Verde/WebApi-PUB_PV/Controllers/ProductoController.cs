@@ -40,7 +40,7 @@ namespace WebApi_PUB_PV.Controllers
         }
 
         //Modificar
-        [HttpPost("/api/modificarProducto")]
+        [HttpPut("/api/modificarProducto")]
         public ActionResult<DTProducto> Put([FromBody] DTProducto Modificar)
         {
             MensajeRetorno x = bl.Modificar_Producto(Modificar);

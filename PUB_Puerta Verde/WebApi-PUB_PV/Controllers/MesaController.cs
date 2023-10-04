@@ -40,7 +40,7 @@ namespace WebApi_PUB_PV.Controllers
         }
 
         //Modificar
-        [HttpPost("/api/modificarMesa")]
+        [HttpPut("/api/modificarMesa")]
         public ActionResult<DTMesa> Put([FromBody] DTMesa Modificar)
         {
             MensajeRetorno x = bl.Modificar_Mesa(Modificar);

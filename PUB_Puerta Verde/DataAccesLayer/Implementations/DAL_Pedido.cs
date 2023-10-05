@@ -29,9 +29,9 @@ namespace DataAccesLayer.Implementations
 
                 int idPedido = aux.id_Pedido;
 
-                foreach (int i in dtP.list_IdProductos)
+                foreach (DTProducto_Observaciones dpo in dtP.list_IdProductos)
                 {
-                    aux2 = Pedidos_Productos.SetPedido_Producto(idPedido, i);
+                    aux2 = Pedidos_Productos.SetPedido_Producto(idPedido, dpo.id_Producto, dpo.observaciones);
                     _db.Pedidos_Productos.Add(aux2);
                     _db.SaveChanges();
                 }
@@ -57,25 +57,13 @@ namespace DataAccesLayer.Implementations
             aux.fecha_ingreso = dtP.fecha_ingreso;
             aux.hora_ingreso = dtP.hora_ingreso;
             aux.numero_movil = dtP.numero_movil;
-            aux.observaciones = dtP.observaciones;
+        
             Pedidos_Productos aux2 = null;
 
             try
             {
                 _db.Update(aux);
                 _db.SaveChanges();
-
-                foreach(int x in dtP.list_IdProductos)
-                {
-                    aux2 = null; 
-                    aux2 = _db.Pedidos_Productos.FirstOrDefault(ped => ped.id_Pedido == dtP.id_Pedido && ped.id_Producto == x);
-                    if (aux2 == null)
-                    {
-                        aux2 = Pedidos_Productos.SetPedido_Producto(dtP.id_Pedido, x);
-                        _db.Pedidos_Productos.Add(aux2);
-                        _db.SaveChanges();
-                    }
-                }
             }
             catch
             {

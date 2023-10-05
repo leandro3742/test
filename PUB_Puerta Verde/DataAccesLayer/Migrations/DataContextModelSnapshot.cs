@@ -148,10 +148,6 @@ namespace DataAccesLayer.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("observaciones")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<bool>("pago")
                         .HasColumnType("boolean");
 
@@ -174,6 +170,10 @@ namespace DataAccesLayer.Migrations
 
                     b.Property<int>("id_Producto")
                         .HasColumnType("integer");
+
+                    b.Property<string>("observaciones")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("id_Pedido", "id_Producto");
 

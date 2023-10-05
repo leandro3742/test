@@ -18,8 +18,7 @@ namespace Domain.DT
         public DateTime hora_ingreso { get; set; }
         public DateTime fecha_ingreso { get; set; }
         public string numero_movil { get; set; }
-        public string observaciones { get; set; }
-        public List<int> list_IdProductos { get; set; }
+        public List<DTProducto_Observaciones> list_IdProductos { get; set; }
 
         public DTPedido()
         {
@@ -27,10 +26,10 @@ namespace Domain.DT
             fecha_ingreso = DateTime.Today;
             pago = false;
             estadoProceso = false;
-            list_IdProductos = new List<int>();
+            list_IdProductos = new List<DTProducto_Observaciones>();
         }
 
-        public DTPedido(int id_Pedido, float valorPedido, bool pago, string username, int id_Cli_Preferencial, int id_Mesa, string numero_movil, string observaciones)
+        public DTPedido(int id_Pedido, float valorPedido, bool pago, string username, int id_Cli_Preferencial, int id_Mesa, string numero_movil)
         {
             this.id_Pedido = id_Pedido;
             this.valorPedido = valorPedido;
@@ -39,7 +38,6 @@ namespace Domain.DT
             this.id_Cli_Preferencial = id_Cli_Preferencial;
             this.id_Mesa = id_Mesa;
             this.numero_movil = numero_movil;
-            this.observaciones = observaciones;
         }
     }
 }

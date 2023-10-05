@@ -15,14 +15,16 @@ namespace DataAccesLayer.Models
     {
         public int id_Pedido { get; set; }
         public int id_Producto { get; set; }
+        public string observaciones { get; set; }
 
 
-        public static Pedidos_Productos SetPedido_Producto(int idPedido, int idProducto)
+        public static Pedidos_Productos SetPedido_Producto(int idPedido, int idProducto, string observaciones)
         {
             Pedidos_Productos aux = new Pedidos_Productos();
 
             aux.id_Pedido = idPedido;
             aux.id_Producto = idProducto;
+            aux.observaciones = observaciones;
 
             return aux;
         }

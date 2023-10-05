@@ -20,7 +20,6 @@ namespace Domain.Entidades
         public DateTime hora_ingreso { get; set; }
         public DateTime fecha_ingreso { get; set; }
         public string numero_movil { get; set; }
-        public string observaciones { get; set; }
 
         public Pedido()
         {
@@ -30,7 +29,7 @@ namespace Domain.Entidades
             estadoProceso = false;
         }
 
-        public Pedido(int id_Pedido, float valorPedido, bool pago, string username, int id_Cli_Preferencial, int id_Mesa, string numero_movil, string observaciones)
+        public Pedido(int id_Pedido, float valorPedido, bool pago, string username, int id_Cli_Preferencial, int id_Mesa, string numero_movil)
         {
             this.id_Pedido = id_Pedido;
             this.valorPedido = valorPedido;
@@ -39,7 +38,6 @@ namespace Domain.Entidades
             this.id_Cli_Preferencial = id_Cli_Preferencial;
             this.id_Mesa = id_Mesa;
             this.numero_movil = numero_movil;
-            this.observaciones = observaciones;
         }
     }
 }

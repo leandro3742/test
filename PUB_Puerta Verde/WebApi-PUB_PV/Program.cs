@@ -7,6 +7,7 @@ using DataAccesLayer.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using SignalR;
 using System.Text;
 
@@ -17,6 +18,13 @@ builder.Services.AddDbContext<DataContext>();
 builder.Services.AddIdentity<Usuarios, IdentityRole>()
     .AddEntityFrameworkStores<DataContext>()
     .AddDefaultTokenProviders();
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<DataContext>();
+
 // Adding Authentication
 string? JWT_SECRET = Environment.GetEnvironmentVariable("JWT_SECRET");
 if (string.IsNullOrEmpty(JWT_SECRET))
@@ -55,6 +63,46 @@ builder.Services.AddCors(options =>
     {
         builder.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:5173").AllowCredentials();
     });
+});
+
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1",
+        new OpenApiInfo
+        {
+            Title = "Web API - V1",
+            Version = "v1"
+        }
+     );
+
+    //var filePath = Path.Combine(AppContext.BaseDirectory, "WebAPI.xml");
+    //c.IncludeXmlComments(filePath);
+
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "JWT Authorization header using the Bearer scheme."
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+        {
+        Reference = new OpenApiReference
+        {
+            Type = ReferenceType.SecurityScheme,
+            Id = "Bearer"
+        }
+    },
+        new string[] {}
+    }});
 });
 
 

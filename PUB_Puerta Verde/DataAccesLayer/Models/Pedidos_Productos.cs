@@ -1,4 +1,5 @@
 ﻿using Domain.DT;
+using Domain.Entidades;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,14 @@ namespace DataAccesLayer.Models
             aux.id_Producto = idProducto;
             aux.observaciones = observaciones;
 
+            return aux;
+        }
+        public Pedidos_Productos GetPedidos_Productos()
+        {
+            Pedidos_Productos aux = new Pedidos_Productos();
+            aux.id_Producto = id_Producto;
+            aux.id_Pedido = id_Pedido;
+            aux.observaciones = observaciones;
             return aux;
         }
     }

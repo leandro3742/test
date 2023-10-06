@@ -26,40 +26,23 @@ namespace DataAccesLayer.Implementations
             _cas = cas;
         }
 
+#pragma warning disable CS8618 // Un campo que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de declararlo como que admite un valor NULL.
         public DAL_FuncionesExtras()
         {
         }
+#pragma warning restore CS8618 // Un campo que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de declararlo como que admite un valor NULL.
 
         bool IDAL_FuncionesExtras.existeCategoria(string nombre)
         {
-            if (_db.Categorias.Any())
-            {
-                foreach (Categorias x in _db.Categorias)
-                {
-                    if (x.nombre.Equals(nombre))
-                    {
-                        return true;
-                    }
-                }
-                return false;
-            }
-            else
-                return false;
+            if (_db.Categorias.SingleOrDefault(i => i.nombre == nombre) != null)
+                return true;
+            return false;
         }
 
         bool IDAL_FuncionesExtras.existeCliente(string telefono)
         {
-            if (_db.ClientesPreferenciales.Any())
-            {
-                foreach (ClientesPreferenciales x in _db.ClientesPreferenciales)
-                {
-                    if (x.telefono.Equals(telefono))
-                    {
-                        return true;
-                    }
-                }
-                return false;
-            }
+            if (_db.ClientesPreferenciales.SingleOrDefault(i => i.telefono == telefono) != null)
+                return true;
             return false;
         }
 
@@ -67,85 +50,64 @@ namespace DataAccesLayer.Implementations
         {
             // Utiliza SingleOrDefault() para buscar un ingrediente por nombre.
             if (_db.Ingredientes.SingleOrDefault(i => i.nombre == nombre) != null)
-            {
                 return true;
-            }
-            else
-                return false;
+            return false;
         }
 
         bool IDAL_FuncionesExtras.existeClienteId(int id)
         {
             if (_db.ClientesPreferenciales.SingleOrDefault(i => i.id_Cli_Preferencial == id) != null)
-            {
                 return true;
-            }
-            else
-                return false;
+            return false;
         }
 
         public bool existeProducto(string nombre)
         {
             // Utiliza SingleOrDefault() para buscar un producto por nombre.
             if (_db.Productos.SingleOrDefault(i => i.nombre == nombre) != null)
-            {
                 return true;
-            }
-            else
-                return false;
+            return false;
         }
 
         public bool existeMesa(int id_Mesa)
         {
             // Utiliza SingleOrDefault() para buscar una Mesa.
             if (_db.Mesas.SingleOrDefault(i => i.id_Mesa == id_Mesa) != null)
-            {
                 return true;
-            }
-            else
-                return false;
+            return false;
         }
 
         public bool existePedido(int id_Pedido)
         {
             if (_db.Pedidos.SingleOrDefault(i => i.id_Pedido == id_Pedido) != null)
-            {
                 return true;
-            }
-            else
-                return false;
+            return false;
         }
 
         public bool existeUsuario(string username)
         {
             if (_db.Users.SingleOrDefault(i => i.UserName == username) != null)
-            {
                 return true;
-            }
-            else
-                return false;
+            return false;
         }
 
         public bool mesaEnUso(int idMesa)
         {
-            Mesas aux = _db.Mesas.SingleOrDefault(i => i.id_Mesa == idMesa);
+            Mesas? aux = _db.Mesas.SingleOrDefault(i => i.id_Mesa == idMesa);
             if (aux != null && aux.enUso == false)
-            {
                 return false;
-            }
-            else
-            { 
-                return true;
-            }
+            return true;
         }
 
         public void agregarPrecioaMesa(float valor, int idMesa)
         {
-            Mesas aux = _db.Mesas.SingleOrDefault(i => i.id_Mesa == idMesa);
-            aux.precioTotal = valor;
-            
-            _db.Mesas.Update(aux);
-            _db.SaveChanges();
+            Mesas? aux = _db.Mesas.SingleOrDefault(i => i.id_Mesa == idMesa);
+            if (aux != null)
+            {
+                aux.precioTotal = valor;
+                _db.Mesas.Update(aux);
+                _db.SaveChanges();
+            }
         }
 
         public byte[] pdfPedido(int id)
@@ -163,7 +125,7 @@ namespace DataAccesLayer.Implementations
                     using (var document = new Document(pdfDoc))
                     {
                         // Agrega contenido al documento
-                        Paragraph paragraph = new Paragraph("¡Hola, este es el pdf con id "+id+" !");
+                        Paragraph paragraph = new Paragraph("¡Hola, este es el pdf con id " + id + " !");
                         document.Add(paragraph);
                     }
                 }
@@ -175,7 +137,7 @@ namespace DataAccesLayer.Implementations
             return pdfData;
             // Aquí puedes trabajar con pdfData, que contiene el PDF en forma de arreglo de bytes
             // Por ejemplo, puedes guardar el arreglo de bytes en un archivo o en base de datos , enviarlo por correo electrónico, etc.
-            
+
             /* ejemplo de como guardarlo en la ubicación del directorio de trabajo actual (carpeta WebApi-PUB_PV en este caso)
             // Obtiene la ubicación del directorio de trabajo actual
             string workingDirectory = Environment.CurrentDirectory;

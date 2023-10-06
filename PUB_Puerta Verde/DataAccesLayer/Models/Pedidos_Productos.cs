@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataAccesLayer.Models
 {
+#pragma warning disable CS8618 // Un campo que no acepta valores NULL debe contener un valor distinto de NULL al salir del constructor. Considere la posibilidad de declararlo como que admite un valor NULL.
     [Table(name: "Pedido_Producto")]
     [PrimaryKey(nameof(id_Pedido), nameof(id_Producto))]
     public class Pedidos_Productos

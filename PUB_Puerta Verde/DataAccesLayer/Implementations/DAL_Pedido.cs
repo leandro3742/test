@@ -47,7 +47,7 @@ namespace DataAccesLayer.Implementations
         bool IDAL_Pedido.update_Pedido(DTPedido dtP)
         {
             Pedidos? aux = null;
-            aux = _db.Pedidos.FirstOrDefault(pe => pe.id_Pedido == dtP.id_Pedido);
+            aux = _db.Pedidos.FirstOrDefault(pe => pe.id_Pedido == dtP.id_Pedido);  
             if (aux != null)
             {
                 aux.valorPedido = dtP.valorPedido;

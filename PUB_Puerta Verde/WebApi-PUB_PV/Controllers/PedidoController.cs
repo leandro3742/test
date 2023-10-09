@@ -19,6 +19,7 @@ namespace WebApi_PUB_PV.Controllers
         [HttpPost("/api/agregarPedido")]
         public ActionResult<DTPedido> Post([FromBody] DTPedido value)
         {
+            Console.WriteLine(value);
             MensajeRetorno x = bl.agregar_Pedido(value);
             return Ok(new StatusResponse { StatusOk = x.status, StatusMessage = x.mensaje });
         }
